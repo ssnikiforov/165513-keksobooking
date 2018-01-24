@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Stepan Nikiforov](https://up.htmlacademy.ru/javascript/12/user/165513).
-* Наставник: `Неизвестно`.
+* Наставник: [Sasha Sushko](https://htmlacademy.ru/profile/sashasushko).
 
 ---
 
