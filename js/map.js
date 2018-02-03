@@ -67,7 +67,7 @@
   };
 
   var getRandomNumberFromRange = function (min, max) {
-    return Math.random() * (max - min) + min
+    return Math.random() * (max - min) + min;
   };
 
   var getAvatar = function (number) {
@@ -100,7 +100,7 @@
   };
 
   var getRandomRoom = function (roomsMin, roomsMax) {
-    return parseInt(Math.round(getRandomNumberFromRange(roomsMin, roomsMax)));
+    return parseInt(Math.round(getRandomNumberFromRange(roomsMin, roomsMax)), 10);
   };
 
   var getGuestsQuantity = function (guests) {
@@ -162,7 +162,7 @@
           checkin: getRandomCheckInValue(TIME_VALUES),
           checkout: getRandomCheckOutValue(TIME_VALUES),
           features: getRandomFeatures(FEATURES),
-          description: "",
+          description: '',
           photos: getRandomPhotos(PHOTOS)
         },
         location: {
@@ -253,7 +253,7 @@
   };
 
   var modifyTypes = function (typeElement, offer) {
-    var typeTranslated = "";
+    var typeTranslated = '';
     switch (offer.offer.type) {
       case 'flat':
         typeTranslated = 'Квартира';
@@ -274,10 +274,10 @@
     var articleElement = template.cloneNode(true);
     articleElement.querySelector('h3').textContent = offer.offer.title;
     articleElement.querySelector('p small').textContent = offer.offer.address;
-    articleElement.querySelector('.popup__price').textContent = "";
+    articleElement.querySelector('.popup__price').textContent = '';
     articleElement.querySelector('.popup__price').insertAdjacentHTML('beforeBegin', offer.offer.price + ' &#x20bd;/ночь');
 
-    var typeEl = articleElement.querySelector('h4')
+    var typeEl = articleElement.querySelector('h4');
     modifyTypes(typeEl, offer);
 
     var roomsAndGuestEl = articleElement.querySelector('h4').nextElementSibling;
