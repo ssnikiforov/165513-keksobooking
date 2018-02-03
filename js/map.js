@@ -92,7 +92,7 @@
   };
 
   var getRandomPrice = function (priceMin, priceMax) {
-    return parseFloat(getRandomNumberFromRange(priceMin, priceMax).toFixed(2));
+    return parseInt(getRandomNumberFromRange(priceMin, priceMax), 10);
   };
 
   var getRandomType = function (types) {
@@ -176,29 +176,130 @@
     return offers;
   };
 
-  var renderMapPin = function (offer, template) {
+  var renderMapPin = function (template, offer) {
     var pinElement = template.cloneNode(true);
     var avatarElement = pinElement.querySelector('img');
 
-    pinElement.style.left = +offer.location.x + 'px';
-    pinElement.style.top = +offer.location.y + 'px';
+    pinElement.style.left = offer.location.x + 'px';
+    pinElement.style.top = offer.location.y + 'px';
     avatarElement.src = offer.author.avatar;
 
     return pinElement;
   };
 
-  var renderMapPins = function (template, offers) {
+  var renderMapPins = function (map, template, offers) {
     var mapPinsTemplate = template.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();
 
     for (var i = 0, n = offers.length; i < n; i++) {
       var pinElementTemplate = mapPinsTemplate.cloneNode(true);
 
-      fragment.appendChild(renderMapPin(offers[i], pinElementTemplate));
+      fragment.appendChild(renderMapPin(pinElementTemplate, offers[i]));
     }
 
     var mapPins = map.querySelector('.map__pins');
     mapPins.appendChild(fragment);
+  };
+
+  var modifyArticle = function (template, offer) {
+    var articleElement = template.cloneNode(true);
+    // var avatarElement = articleElement.querySelector('img');
+    articleElement.querySelector('h3').textContent = offer.offer.title;
+    articleElement.querySelector('p small').textContent = offer.offer.address;
+    articleElement.querySelector('.popup__price').textContent = "";
+    articleElement.querySelector('.popup__price').insertAdjacentHTML('beforeBegin', offer.offer.price + ' &#x20bd;/ночь');
+
+    var typeTranslate = "";
+    switch (offer.offer.type) {
+      case 'flat':
+        typeTranslate = 'Квартира';
+        break;
+      case 'bungalo':
+        typeTranslate = 'Бунгало';
+        break;
+      case 'house':
+        typeTranslate = 'Дом';
+        break;
+      default:
+        break;
+    }
+    articleElement.querySelector('h4').textContent = typeTranslate;
+
+    var roomsAndGuestEl = articleElement.querySelector('h4').nextElementSibling;
+    roomsAndGuestEl.textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
+
+    var checkInCheckOutEl = roomsAndGuestEl.nextElementSibling;
+    checkInCheckOutEl.textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
+
+    var featuresListEl = articleElement.querySelector('.popup__features');
+    var featureWiFi = featuresListEl.querySelector('.feature--wifi');
+    var featureDishwasher = featuresListEl.querySelector('.feature--dishwasher');
+    var featureParking = featuresListEl.querySelector('.feature--parking');
+    var featureWasher = featuresListEl.querySelector('.feature--washer');
+    var featureElevator = featuresListEl.querySelector('.feature--elevator');
+    var featureConditioner = featuresListEl.querySelector('.feature--conditioner');
+    while (featuresListEl.firstChild) {
+      featuresListEl.removeChild(featuresListEl.firstChild);
+    }
+    offer.offer.features.forEach(function (feature) {
+      switch (feature) {
+        case 'wifi':
+          featuresListEl.appendChild(featureWiFi);
+          break;
+        case 'dishwasher':
+          featuresListEl.appendChild(featureDishwasher);
+          break;
+        case 'parking':
+          featuresListEl.appendChild(featureParking);
+          break;
+        case 'washer':
+          featuresListEl.appendChild(featureWasher);
+          break;
+        case 'elevator':
+          featuresListEl.appendChild(featureElevator);
+          break;
+        case 'conditioner':
+          featuresListEl.appendChild(featureConditioner);
+          break;
+        default:
+          break;
+      }
+    });
+
+    var descriptionEl = featuresListEl.nextElementSibling;
+    descriptionEl.textContent = offer.offer.description;
+
+    var photosListEl = articleElement.querySelector('.popup__pictures');
+    var photoListItemEl = photosListEl.querySelector('li');
+    while (photosListEl.firstChild) {
+      photosListEl.removeChild(photosListEl.firstChild);
+    }
+    offer.offer.photos.forEach(function (photo) {
+      var photoListItemElCloned = photoListItemEl.cloneNode(true);
+      var photoImgElCloned = photoListItemElCloned.firstChild;
+      photoImgElCloned.src = photo;
+      photoImgElCloned.width = '20';
+      photoImgElCloned.height = '20';
+      photosListEl.appendChild(photoListItemElCloned);
+    });
+
+    articleElement.querySelector('.popup__avatar').src = offer.author.avatar;
+
+    return articleElement;
+  };
+
+  var fillArticles = function (map, template, offers) {
+    var articleTemplate = template.querySelector('.map__card');
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0, n = offers.length; i < n; i++) {
+      var articleElementTemplate = articleTemplate.cloneNode(true);
+
+      fragment.appendChild(modifyArticle(articleElementTemplate, offers[i]));
+    }
+
+    var articles = map.querySelector('.map__filters-container');
+    articles.appendChild(fragment);
   };
 
   var offers = getOffers(NUMBER_OF_OFFERS);
@@ -208,12 +309,6 @@
 
   var template = document.querySelector('template').content;
 
-  renderMapPins(template, offers);
-
-// offers.forEach(function (offer) {
-//   console.log('address', offer.offer.address);
-//   console.log('coords', offer.location.x, offer.location.y);
-// });
-  console.log(offers);
-
+  renderMapPins(map, template, offers);
+  fillArticles(map, template, offers);
 })();
