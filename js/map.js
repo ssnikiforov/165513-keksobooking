@@ -201,29 +201,84 @@
     mapPins.appendChild(fragment);
   };
 
+  var modifyFeatures = function (featureListElement, offer) {
+    var featureWiFi = featureListElement.querySelector('.feature--wifi');
+    var featureDishwasher = featureListElement.querySelector('.feature--dishwasher');
+    var featureParking = featureListElement.querySelector('.feature--parking');
+    var featureWasher = featureListElement.querySelector('.feature--washer');
+    var featureElevator = featureListElement.querySelector('.feature--elevator');
+    var featureConditioner = featureListElement.querySelector('.feature--conditioner');
+    while (featureListElement.firstChild) {
+      featureListElement.removeChild(featureListElement.firstChild);
+    }
+    offer.offer.features.forEach(function (feature) {
+      switch (feature) {
+        case 'wifi':
+          featureListElement.appendChild(featureWiFi);
+          break;
+        case 'dishwasher':
+          featureListElement.appendChild(featureDishwasher);
+          break;
+        case 'parking':
+          featureListElement.appendChild(featureParking);
+          break;
+        case 'washer':
+          featureListElement.appendChild(featureWasher);
+          break;
+        case 'elevator':
+          featureListElement.appendChild(featureElevator);
+          break;
+        case 'conditioner':
+          featureListElement.appendChild(featureConditioner);
+          break;
+        default:
+          break;
+      }
+    });
+  };
+
+  var modifyPhotos = function (photoListElement, offer) {
+    var photoListItemEl = photoListElement.querySelector('li');
+    while (photoListElement.firstChild) {
+      photoListElement.removeChild(photoListElement.firstChild);
+    }
+    offer.offer.photos.forEach(function (photo) {
+      var photoListItemElCloned = photoListItemEl.cloneNode(true);
+      var photoImgElCloned = photoListItemElCloned.firstChild;
+      photoImgElCloned.src = photo;
+      photoImgElCloned.width = '20';
+      photoImgElCloned.height = '20';
+      photoListElement.appendChild(photoListItemElCloned);
+    });
+  };
+
+  var modifyTypes = function (typeElement, offer) {
+    var typeTranslated = "";
+    switch (offer.offer.type) {
+      case 'flat':
+        typeTranslated = 'Квартира';
+        break;
+      case 'bungalo':
+        typeTranslated = 'Бунгало';
+        break;
+      case 'house':
+        typeTranslated = 'Дом';
+        break;
+      default:
+        break;
+    }
+    typeElement.textContent = typeTranslated;
+  };
+
   var modifyArticle = function (template, offer) {
     var articleElement = template.cloneNode(true);
-    // var avatarElement = articleElement.querySelector('img');
     articleElement.querySelector('h3').textContent = offer.offer.title;
     articleElement.querySelector('p small').textContent = offer.offer.address;
     articleElement.querySelector('.popup__price').textContent = "";
     articleElement.querySelector('.popup__price').insertAdjacentHTML('beforeBegin', offer.offer.price + ' &#x20bd;/ночь');
 
-    var typeTranslate = "";
-    switch (offer.offer.type) {
-      case 'flat':
-        typeTranslate = 'Квартира';
-        break;
-      case 'bungalo':
-        typeTranslate = 'Бунгало';
-        break;
-      case 'house':
-        typeTranslate = 'Дом';
-        break;
-      default:
-        break;
-    }
-    articleElement.querySelector('h4').textContent = typeTranslate;
+    var typeEl = articleElement.querySelector('h4')
+    modifyTypes(typeEl, offer);
 
     var roomsAndGuestEl = articleElement.querySelector('h4').nextElementSibling;
     roomsAndGuestEl.textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
@@ -232,56 +287,13 @@
     checkInCheckOutEl.textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
 
     var featuresListEl = articleElement.querySelector('.popup__features');
-    var featureWiFi = featuresListEl.querySelector('.feature--wifi');
-    var featureDishwasher = featuresListEl.querySelector('.feature--dishwasher');
-    var featureParking = featuresListEl.querySelector('.feature--parking');
-    var featureWasher = featuresListEl.querySelector('.feature--washer');
-    var featureElevator = featuresListEl.querySelector('.feature--elevator');
-    var featureConditioner = featuresListEl.querySelector('.feature--conditioner');
-    while (featuresListEl.firstChild) {
-      featuresListEl.removeChild(featuresListEl.firstChild);
-    }
-    offer.offer.features.forEach(function (feature) {
-      switch (feature) {
-        case 'wifi':
-          featuresListEl.appendChild(featureWiFi);
-          break;
-        case 'dishwasher':
-          featuresListEl.appendChild(featureDishwasher);
-          break;
-        case 'parking':
-          featuresListEl.appendChild(featureParking);
-          break;
-        case 'washer':
-          featuresListEl.appendChild(featureWasher);
-          break;
-        case 'elevator':
-          featuresListEl.appendChild(featureElevator);
-          break;
-        case 'conditioner':
-          featuresListEl.appendChild(featureConditioner);
-          break;
-        default:
-          break;
-      }
-    });
+    modifyFeatures(featuresListEl, offer);
 
     var descriptionEl = featuresListEl.nextElementSibling;
     descriptionEl.textContent = offer.offer.description;
 
     var photosListEl = articleElement.querySelector('.popup__pictures');
-    var photoListItemEl = photosListEl.querySelector('li');
-    while (photosListEl.firstChild) {
-      photosListEl.removeChild(photosListEl.firstChild);
-    }
-    offer.offer.photos.forEach(function (photo) {
-      var photoListItemElCloned = photoListItemEl.cloneNode(true);
-      var photoImgElCloned = photoListItemElCloned.firstChild;
-      photoImgElCloned.src = photo;
-      photoImgElCloned.width = '20';
-      photoImgElCloned.height = '20';
-      photosListEl.appendChild(photoListItemElCloned);
-    });
+    modifyPhotos(photosListEl, offer);
 
     articleElement.querySelector('.popup__avatar').src = offer.author.avatar;
 
