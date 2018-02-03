@@ -180,7 +180,41 @@ var getOffers = function (numberOfOffers) {
   return offers;
 };
 
+
+
+// WIP below
+var renderOfferPins = function (offers, template) {
+  var pinElement = template.cloneNode(true);
+  var pinElement = template.cloneNode(true);
+  var avatarElement = pinElement.querySelector('img');
+  console.log(pinElement);
+  console.log(avatarElement);
+
+  // wizardElement.querySelector('.setup-similar-label').textContent = offers.name;
+  // wizardElement.querySelector('.wizard-coat').style.fill = offers.coatColor;
+  // wizardElement.querySelector('.wizard-eyes').style.fill = offers.eyesColor;
+
+  return pinElement;
+};
+
+var map = document.querySelector('.map');
+map.classList.remove('.map--faded');
+
+// var similarListElement = userDialog.querySelector('.setup-similar-list');
+var template = document.querySelector('template').content;
+var mapPinsTemplate = template.querySelector('button.map__pin');
+
+var fragment = document.createDocumentFragment();
+
 var offers = getOffers(NUMBER_OF_OFFERS);
+
+for (var i = 0, n = offers.length; i < n; i++) {
+  var pinElementTemplate = mapPinsTemplate.cloneNode(true);
+
+  fragment.appendChild(renderOfferPins(offers[i], pinElementTemplate));
+}
+
+// similarListElement.appendChild(fragment);
 
 // offers.forEach(function (offer) {
 //   console.log('address', offer.offer.address);
