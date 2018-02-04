@@ -240,7 +240,9 @@
     articleElement.querySelector('h3').textContent = ad.offer.title;
     articleElement.querySelector('p small').textContent = ad.offer.address;
     articleElement.querySelector('.popup__price').textContent = '';
-    articleElement.querySelector('.popup__price').insertAdjacentHTML('beforeBegin', ad.offer.price + ' &#x20bd;/ночь');
+    
+    var priceEl = document.createTextNode(ad.offer.price + ' \u20BD/ночь');
+    articleElement.querySelector('.popup__price').appendChild(priceEl);
 
     var typeEl = articleElement.querySelector('h4');
     modifyTypes(typeEl, ad);
