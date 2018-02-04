@@ -240,7 +240,7 @@
     articleElement.querySelector('h3').textContent = ad.offer.title;
     articleElement.querySelector('p small').textContent = ad.offer.address;
     articleElement.querySelector('.popup__price').textContent = '';
-    
+
     var priceEl = document.createTextNode(ad.offer.price + ' \u20BD/ночь');
     articleElement.querySelector('.popup__price').appendChild(priceEl);
 
@@ -267,15 +267,12 @@
     return articleElement;
   };
 
-  var fillArticles = function (map, template, ads) {
+  var renderArticle = function (map, template, ad) {
     var articleTemplate = template.querySelector('.map__card');
+    var articleElementTemplate = articleTemplate.cloneNode(true);
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0, n = ads.length; i < n; i++) {
-      var articleElementTemplate = articleTemplate.cloneNode(true);
-
-      fragment.appendChild(modifyArticle(articleElementTemplate, ads[i]));
-    }
+    fragment.appendChild(modifyArticle(articleElementTemplate, ad));
 
     map.querySelector('.map__filters-container').appendChild(fragment);
   };
@@ -288,5 +285,5 @@
   var template = document.querySelector('template').content;
 
   renderMapPins(map, template, ads);
-  fillArticles(map, template, ads);
+  renderArticle(map, template, ads[0]);
 })();
