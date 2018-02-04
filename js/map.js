@@ -63,7 +63,7 @@
   };
 
   var getRandomNumberFromRange = function (min, max) {
-    return Math.random() * (max - min) + min;
+    return Math.round(Math.random() * (max - min) + min);
   };
 
   var getAvatar = function (number) {
@@ -77,7 +77,7 @@
   };
 
   var getTitle = function (titlesArr) {
-    var index = getRandomIndex(titlesArr.length);
+    var index = getRandomIndex(titlesArr);
     var title = titlesArr[index];
 
     if (index > -1) {
@@ -88,7 +88,7 @@
   };
 
   var getRandomPrice = function (priceMin, priceMax) {
-    return parseInt(getRandomNumberFromRange(priceMin, priceMax), 10);
+    return getRandomNumberFromRange(priceMin, priceMax);
   };
 
   var getRandomType = function (types) {
@@ -96,7 +96,7 @@
   };
 
   var getRandomRoom = function (roomsMin, roomsMax) {
-    return parseInt(Math.round(getRandomNumberFromRange(roomsMin, roomsMax)), 10);
+    return getRandomNumberFromRange(roomsMin, roomsMax);
   };
 
   var getGuestsQuantity = function (guests) {
@@ -141,8 +141,8 @@
     var titlesTemp = TITLES.slice();
 
     for (var i = 0; i < numberOfOffers; i++) {
-      var xValue = Math.round(getRandomNumberFromRange(X_COORD_MIN, X_COORD_MAX));
-      var yValue = Math.round(getRandomNumberFromRange(Y_COORD_MIN, Y_COORD_MAX));
+      var xValue = getRandomNumberFromRange(X_COORD_MIN, X_COORD_MAX);
+      var yValue = getRandomNumberFromRange(Y_COORD_MIN, Y_COORD_MAX);
 
       var offer = {
         author: {
