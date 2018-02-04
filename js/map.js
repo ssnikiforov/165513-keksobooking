@@ -241,8 +241,8 @@
       var photoListItemElCloned = photoListItemEl.cloneNode(true);
       var photoImgElCloned = photoListItemElCloned.firstChild;
       photoImgElCloned.src = photo;
-      photoImgElCloned.width = '20';
-      photoImgElCloned.height = '20';
+      photoImgElCloned.width = '100';
+      photoImgElCloned.height = '100';
       photoListElement.appendChild(photoListItemElCloned);
     });
   };
