@@ -193,8 +193,7 @@
       fragment.appendChild(renderMapPin(pinElementTemplate, offers[i]));
     }
 
-    var mapPins = map.querySelector('.map__pins');
-    mapPins.appendChild(fragment);
+    map.querySelector('.map__pins').appendChild(fragment);
   };
 
   var modifyFeatures = function (featureListElement, offer) {
@@ -306,8 +305,7 @@
       fragment.appendChild(modifyArticle(articleElementTemplate, offers[i]));
     }
 
-    var articles = map.querySelector('.map__filters-container');
-    articles.appendChild(fragment);
+    map.querySelector('.map__filters-container').appendChild(fragment);
   };
 
   var offers = getOffers(NUMBER_OF_OFFERS);
