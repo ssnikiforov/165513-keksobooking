@@ -197,38 +197,12 @@
   };
 
   var modifyFeatures = function (featureListElement, ad) {
-    var featureWiFi = featureListElement.querySelector('.feature--wifi');
-    var featureDishwasher = featureListElement.querySelector('.feature--dishwasher');
-    var featureParking = featureListElement.querySelector('.feature--parking');
-    var featureWasher = featureListElement.querySelector('.feature--washer');
-    var featureElevator = featureListElement.querySelector('.feature--elevator');
-    var featureConditioner = featureListElement.querySelector('.feature--conditioner');
-    while (featureListElement.firstChild) {
-      featureListElement.removeChild(featureListElement.firstChild);
-    }
-    ad.offer.features.forEach(function (feature) {
-      switch (feature) {
-        case 'wifi':
-          featureListElement.appendChild(featureWiFi);
-          break;
-        case 'dishwasher':
-          featureListElement.appendChild(featureDishwasher);
-          break;
-        case 'parking':
-          featureListElement.appendChild(featureParking);
-          break;
-        case 'washer':
-          featureListElement.appendChild(featureWasher);
-          break;
-        case 'elevator':
-          featureListElement.appendChild(featureElevator);
-          break;
-        case 'conditioner':
-          featureListElement.appendChild(featureConditioner);
-          break;
-        default:
-          break;
-      }
+    var missingFeatures = FEATURES.filter(function (feature) {
+      return !ad.offer.features.includes(feature);
+    });
+
+    missingFeatures.forEach(function (missingFeature) {
+      featureListElement.removeChild(featureListElement.querySelector('.feature--' + missingFeature));
     });
   };
 
