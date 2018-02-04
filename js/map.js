@@ -59,11 +59,7 @@
       return value;
     }
 
-    if (value instanceof Array) {
-      return Math.floor(Math.random() * value.length);
-    }
-
-    return Math.floor(Math.random() * parseInt(value, 10));
+    return Math.floor(Math.random() * value);
   };
 
   var getRandomNumberFromRange = function (min, max) {
@@ -76,12 +72,12 @@
     return 'img/avatars/user' + number + '.png';
   };
 
-  var getRandomIndex = function (value) {
-    return getRandomNumber(value);
+  var getRandomIndex = function (array) {
+    return getRandomNumber(array.length);
   };
 
   var getTitle = function (titlesArr) {
-    var index = getRandomIndex(titlesArr);
+    var index = getRandomIndex(titlesArr.length);
     var title = titlesArr[index];
 
     if (index > -1) {
@@ -96,7 +92,7 @@
   };
 
   var getRandomType = function (types) {
-    return types[getRandomNumber(types)];
+    return types[getRandomIndex(types)];
   };
 
   var getRandomRoom = function (roomsMin, roomsMax) {
@@ -108,17 +104,17 @@
   };
 
   var getRandomCheckInValue = function (checkInTime) {
-    return checkInTime[getRandomNumber(checkInTime)];
+    return checkInTime[getRandomIndex(checkInTime)];
   };
 
   var getRandomCheckOutValue = function (checkOutTime) {
-    return checkOutTime[getRandomNumber(checkOutTime)];
+    return checkOutTime[getRandomIndex(checkOutTime)];
   };
 
   var getRandomFeatures = function (features) {
     var arr = [];
-    for (var i = 0, n = getRandomNumber(features) || 1; i < n; i++) {
-      arr.push(features[getRandomNumber(features)]);
+    for (var i = 0, n = getRandomIndex(features) || 1; i < n; i++) {
+      arr.push(features[getRandomIndex(features)]);
     }
 
     return arr;
