@@ -222,21 +222,17 @@
   };
 
   var modifyTypes = function (typeElement, ad) {
-    var typeTranslated = '';
-    switch (ad.offer.type) {
-      case 'flat':
-        typeTranslated = 'Квартира';
-        break;
-      case 'bungalo':
-        typeTranslated = 'Бунгало';
-        break;
-      case 'house':
-        typeTranslated = 'Дом';
-        break;
-      default:
-        break;
+    var adTypesReference = {
+      flat: 'Квартира',
+      bungalo: 'Бунгало',
+      house: 'Дом'
+    };
+
+    var adType = ad.offer.type;
+
+    if (adType in adTypesReference) {
+      typeElement.textContent = adTypesReference[adType];
     }
-    typeElement.textContent = typeTranslated;
   };
 
   var modifyArticle = function (template, ad) {
