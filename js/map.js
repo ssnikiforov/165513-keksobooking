@@ -118,7 +118,7 @@
   var getRandomFeatures = function (features) {
     var arr = [];
     for (var i = 0, n = getRandomNumber(features) || 1; i < n; i++) {
-      arr.push(features[getRandomNumber(features.length)]);
+      arr.push(features[getRandomNumber(features)]);
     }
 
     return arr;
@@ -323,9 +323,4 @@
 
   renderMapPins(map, template, offers);
   fillArticles(map, template, offers);
-
-  offers.forEach(function (offer) {
-    console.log(offer.offer.features);
-  });
-  // console.log(offers.offer.features);
 })();
