@@ -54,6 +54,9 @@
   var Y_COORD_MIN = 150;
   var Y_COORD_MAX = 500;
 
+  var MAP_PIN_WIDTH = 50;
+  var MAP_PIN_HEIGHT = 70;
+
   var getRandomNumber = function (value) {
     if (!value) {
       return value;
@@ -143,8 +146,6 @@
     for (var i = 0; i < numberOfAds; i++) {
       var xValue = getRandomNumberFromRange(X_COORD_MIN, X_COORD_MAX);
       var yValue = getRandomNumberFromRange(Y_COORD_MIN, Y_COORD_MAX);
-      var mapPinWidth = 50;
-      var mapPinHeight = 70;
 
       var ad = {
         author: {
@@ -164,8 +165,8 @@
           photos: getRandomPhotos(PHOTOS)
         },
         location: {
-          x: xValue + mapPinWidth / 2,
-          y: yValue + mapPinHeight
+          x: xValue + MAP_PIN_WIDTH / 2,
+          y: yValue + MAP_PIN_HEIGHT
         }
       };
       ads.push(ad);
@@ -279,28 +280,46 @@
     map.querySelector('.map__filters-container').appendChild(fragment);
   };
 
-  var switchPageActivation = function (disabledFlag) {
+  var switchFieldsetsActivation = function (activationFlag) {
     for (var i = 0, n = noticeFieldsets.length; i < n; i++) {
-      noticeFieldsets[i].disabled = disabledFlag;
+      noticeFieldsets[i].disabled = !activationFlag;
     }
   };
 
-  var activatePageClickHandler = function () {
+  var activatePage = function (activationFlag) {
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
-    switchPageActivation(false);
+    switchFieldsetsActivation(activationFlag);
+  };
+
+  var mainPinMoveHandler = function () {
+    isPageActivated = true;
+    activatePage(isPageActivated);
+    fillAddressField(isPageActivated);
+  };
+
+  var fillAddressField = function (activationFlag) {
+    var addressFormField = noticeForm.querySelector('#address');
+    var mainPinRect = mainPin.getBoundingClientRect();
+
+    var mainPinX = mainPinRect.left + MAP_PIN_WIDTH / 2;
+    var mainPinY = activationFlag ? mainPinRect.top + MAP_PIN_HEIGHT : mainPinRect.top + MAP_PIN_HEIGHT / 2;
+
+    addressFormField.value = mainPinX + ', ' + mainPinY;
   };
 
   var map = document.querySelector('.map');
   var template = document.querySelector('template').content;
   var noticeForm = document.querySelector('.notice__form');
   var noticeFieldsets = noticeForm.querySelectorAll('.form__element');
+  var mainPin = map.querySelector('.map__pin--main');
 
   // disable page by default
-  switchPageActivation(true);
+  var isPageActivated = false;
+  switchFieldsetsActivation(isPageActivated);
+  fillAddressField(isPageActivated);
 
-  var mainPin = map.querySelector('.map__pin--main');
-  mainPin.addEventListener('mouseup', activatePageClickHandler);
+  mainPin.addEventListener('mouseup', mainPinMoveHandler);
 
   // var ads = getAds(NUMBER_OF_ADS);
   // renderMapPins(map, template, ads);
