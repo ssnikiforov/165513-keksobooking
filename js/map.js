@@ -143,6 +143,8 @@
     for (var i = 0; i < numberOfAds; i++) {
       var xValue = getRandomNumberFromRange(X_COORD_MIN, X_COORD_MAX);
       var yValue = getRandomNumberFromRange(Y_COORD_MIN, Y_COORD_MAX);
+      var mapPinWidth = 50;
+      var mapPinHeight = 70;
 
       var ad = {
         author: {
@@ -162,8 +164,8 @@
           photos: getRandomPhotos(PHOTOS)
         },
         location: {
-          x: xValue,
-          y: yValue
+          x: xValue + mapPinWidth / 2,
+          y: yValue + mapPinHeight
         }
       };
       ads.push(ad);
