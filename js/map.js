@@ -285,7 +285,8 @@
 
     fragment.appendChild(modifyNotice(noticeElementTemplate, ad));
 
-    map.querySelector('.map__filters-container').appendChild(fragment);
+    var mapFiltersContainer = map.querySelector('.map__filters-container');
+    map.insertBefore(fragment, mapFiltersContainer);
   };
 
   var switchFieldsetsActivation = function (activationFlag) {
