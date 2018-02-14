@@ -57,6 +57,8 @@
   var MAP_PIN_WIDTH = 50;
   var MAP_PIN_HEIGHT = 70;
 
+  var NOTICE_FORM_ACTION_PATH = 'https://js.dump.academy/keksobooking';
+
   var getRandomNumber = function (value) {
     if (!value) {
       return value;
@@ -327,6 +329,38 @@
   // disable page by default
   var isPageActivated = false;
   switchFieldsetsActivation(isPageActivated);
+
+  // fix page layout
+  noticeForm.action = NOTICE_FORM_ACTION_PATH;
+
+  var titleEl = noticeForm.querySelector('#title');
+  titleEl.required = true;
+  titleEl.minLength = 30;
+  titleEl.maxLength = 100;
+
+  var addressEl = noticeForm.querySelector('#address');
+  addressEl.required = true;
+  addressEl.disabled = true;
+
+  var typeEl = noticeForm.querySelector('#type');
+  typeEl.required = true;
+
+  var priceEl = noticeForm.querySelector('#price');
+  priceEl.required = true;
+  priceEl.maxLength = 1000000;
+
+  var timeInEl = noticeForm.querySelector('#timein');
+  timeInEl.required = true;
+
+  var timeOutEl = noticeForm.querySelector('#timeout');
+  timeOutEl.required = true;
+
+  var roomNumberEl = noticeForm.querySelector('#room_number');
+  roomNumberEl.required = true;
+
+  var capacityEl = noticeForm.querySelector('#capacity');
+  capacityEl.required = true;
+
 
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
 })();
