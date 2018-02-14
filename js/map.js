@@ -193,10 +193,18 @@
     for (var i = 0, n = ads.length; i < n; i++) {
       var pinElementTemplate = mapPinsTemplate.cloneNode(true);
 
-      fragment.appendChild(renderMapPin(pinElementTemplate, ads[i]));
+      var renderedPinElement = renderMapPin(pinElementTemplate, ads[i]);
+      addClickListener(renderedPinElement, ads[i]);
+      fragment.appendChild(renderedPinElement);
     }
 
     map.querySelector('.map__pins').appendChild(fragment);
+  };
+
+  var addClickListener = function (pinElement, ad) {
+    pinElement.addEventListener('click', function () {
+      renderNotice(ad);
+    });
   };
 
   var modifyFeatures = function (featureListElement, ad) {
@@ -270,7 +278,7 @@
     return noticeElement;
   };
 
-  var renderNotice = function (map, template, ad) {
+  var renderNotice = function (ad) {
     var noticeTemplate = template.querySelector('.map__card');
     var noticeElementTemplate = noticeTemplate.cloneNode(true);
     var fragment = document.createDocumentFragment();
@@ -296,6 +304,7 @@
     isPageActivated = true;
     activatePage(isPageActivated);
     fillAddressField(isPageActivated);
+    renderMapPins(map, template, ads);
   };
 
   var fillAddressField = function (activationFlag) {
@@ -313,6 +322,7 @@
   var noticeForm = document.querySelector('.notice__form');
   var noticeFieldsets = noticeForm.querySelectorAll('.form__element');
   var mainPin = map.querySelector('.map__pin--main');
+  var ads = getAds(NUMBER_OF_ADS);
 
   // disable page by default
   var isPageActivated = false;
@@ -320,8 +330,4 @@
   fillAddressField(isPageActivated);
 
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
-
-  // var ads = getAds(NUMBER_OF_ADS);
-  // renderMapPins(map, template, ads);
-  // renderNotice(map, template, ads[0]);
 })();
