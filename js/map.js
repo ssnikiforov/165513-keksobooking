@@ -330,37 +330,93 @@
   var isPageActivated = false;
   switchFieldsetsActivation(isPageActivated);
 
-  // fix page layout
+  mainPin.addEventListener('mouseup', mainPinMoveHandler);
+
+  // form validation
+  var TITLE_LENGTH_MIN = 30;
+  var TITLE_LENGTH_MAX = 1000;
+  var PRICE_LENGTH_MAX = 1000000;
+
   noticeForm.action = NOTICE_FORM_ACTION_PATH;
 
   var titleEl = noticeForm.querySelector('#title');
   titleEl.required = true;
-  titleEl.minLength = 30;
-  titleEl.maxLength = 100;
+  titleEl.minLength = 2;
+  // titleEl.minLength = TITLE_LENGTH_MIN;
+  // titleEl.maxLength = TITLE_LENGTH_MAX;
 
   var addressEl = noticeForm.querySelector('#address');
-  addressEl.required = true;
-  addressEl.disabled = true;
+  // addressEl.required = true;
+  // addressEl.disabled = true;
 
   var typeEl = noticeForm.querySelector('#type');
-  typeEl.required = true;
+  // typeEl.required = true;
 
   var priceEl = noticeForm.querySelector('#price');
-  priceEl.required = true;
-  priceEl.maxLength = 1000000;
+  // priceEl.required = true;
+  priceEl.maxLength = PRICE_LENGTH_MAX;
 
   var timeInEl = noticeForm.querySelector('#timein');
-  timeInEl.required = true;
+  // timeInEl.required = true;
 
   var timeOutEl = noticeForm.querySelector('#timeout');
-  timeOutEl.required = true;
+  // timeOutEl.required = true;
 
   var roomNumberEl = noticeForm.querySelector('#room_number');
-  roomNumberEl.required = true;
+  // roomNumberEl.required = true;
 
   var capacityEl = noticeForm.querySelector('#capacity');
-  capacityEl.required = true;
+  // capacityEl.required = true;
 
+  var validateTitleHandler = function () {
+    console.log('validating title');
+    if (titleEl.validity.tooShort) {
+      titleEl.setCustomValidity('Имя должно состоять минимум из ' + TITLE_LENGTH_MIN + ' символов');
+    } else if (titleEl.validity.tooLong) {
+      titleEl.setCustomValidity('Имя не должно превышать ' + TITLE_LENGTH_MAX + ' символов');
+    } else if (titleEl.validity.valueMissing) {
+      titleEl.setCustomValidity('Обязательное поле');
+    } else {
+      titleEl.setCustomValidity('');
+    }
+  };
+  titleEl.addEventListener('invalid', validateTitleHandler);
 
-  mainPin.addEventListener('mouseup', mainPinMoveHandler);
+  var validateAddressHandler = function () {
+    console.log('validating address');
+    if (addressEl.validity.valueMissing) {
+      addressEl.setCustomValidity('Обязательное поле');
+    } else {
+      addressEl.setCustomValidity('');
+    }
+  };
+  addressEl.addEventListener('invalid', validateAddressHandler);
+
+  var validateTypeHandler = function () {
+    console.log('validating type');
+    if (typeEl.validity.valueMissing) {
+      typeEl.setCustomValidity('Обязательное поле');
+    } else {
+      typeEl.setCustomValidity('');
+    }
+  };
+  typeEl.addEventListener('invalid', validateTypeHandler);
+
+  var validatePriceHandler = function () {
+    console.log('validating price');
+    var priceMin = 10;
+
+    if (priceEl.validity.tooShort) {
+      priceEl.setCustomValidity('Цена не может быть менее ' + priceMin + ' руб.');
+    } else if (priceEl.validity.tooLong) {
+      priceEl.setCustomValidity('Цена не может быть более ' + PRICE_LENGTH_MAX + ' руб.');
+    } else if (priceEl.validity.valueMissing) {
+      priceEl.setCustomValidity('Обязательное поле');
+    } else {
+      priceEl.setCustomValidity('');
+    }
+  };
+  priceEl.addEventListener('invalid', validatePriceHandler);
+
+  document.addEventListener('submit', function (evt) {evt.preventDefault();});
 })();
