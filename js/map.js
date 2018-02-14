@@ -327,7 +327,6 @@
   // disable page by default
   var isPageActivated = false;
   switchFieldsetsActivation(isPageActivated);
-  fillAddressField(isPageActivated);
 
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
 })();
