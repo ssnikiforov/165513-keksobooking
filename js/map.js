@@ -301,9 +301,8 @@
   };
 
   var mainPinMoveHandler = function () {
-    isPageActivated = true;
-    activatePage(isPageActivated);
-    fillAddressField(isPageActivated);
+    activatePage(true);
+    fillAddressField(true);
     renderMapPins(map, template, ads);
   };
 
