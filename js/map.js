@@ -54,8 +54,11 @@
   var Y_COORD_MIN = 150;
   var Y_COORD_MAX = 500;
 
-  var MAP_PIN_WIDTH = 50;
-  var MAP_PIN_HEIGHT = 70;
+  var MAP_PIN_WIDTH = 62;
+  var MAP_PIN_HEIGHT = 84;
+
+  var PIN_INITIAL_X = (X_COORD_MAX - X_COORD_MIN) / 2;
+  var PIN_INITIAL_Y = (Y_COORD_MAX - Y_COORD_MIN) / 2;
 
   var NOTICE_FORM_ACTION_PATH = 'https://js.dump.academy/keksobooking';
 
@@ -305,16 +308,14 @@
 
   var mainPinMoveHandler = function () {
     activatePage(true);
-    fillAddressField(true);
+    fillAddressField();
     renderMapPins(map, template, ads);
   };
 
-  var fillAddressField = function (activationFlag) {
+  var fillAddressField = function () {
     var addressFormField = noticeForm.querySelector('#address');
-    var mainPinRect = mainPin.getBoundingClientRect();
-
-    var mainPinX = mainPinRect.left + MAP_PIN_WIDTH / 2;
-    var mainPinY = activationFlag ? mainPinRect.top + MAP_PIN_HEIGHT : mainPinRect.top + MAP_PIN_HEIGHT / 2;
+    var mainPinX = PIN_INITIAL_X - MAP_PIN_WIDTH / 2;
+    var mainPinY = PIN_INITIAL_Y - MAP_PIN_HEIGHT;
 
     addressFormField.value = mainPinX + ', ' + mainPinY;
   };
