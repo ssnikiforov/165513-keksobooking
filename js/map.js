@@ -297,6 +297,8 @@
   };
 
   var switchFieldsetsActivation = function (activationFlag) {
+    var noticeFieldsets = noticeForm.querySelectorAll('.form__element');
+
     for (var i = 0, n = noticeFieldsets.length; i < n; i++) {
       noticeFieldsets[i].disabled = !activationFlag;
     }
@@ -325,9 +327,12 @@
   var map = document.querySelector('.map');
   var template = document.querySelector('template').content;
   var noticeForm = document.querySelector('.notice__form');
-  var noticeFieldsets = noticeForm.querySelectorAll('.form__element');
   var mainPin = map.querySelector('.map__pin--main');
   var ads = getAds(NUMBER_OF_ADS);
+
+  // TODO: remove this two lines later
+  // activatePage(true);
+  // switchFieldsetsActivation(true);
 
   // disable page by default
   var isPageActivated = false;
@@ -424,30 +429,64 @@
     changeRoomNumber();
   };
 
-  var validateForm = function () {
+  var clickResetButtonHandler = function () {
+    resetPage();
+  };
+
+  var resetPage = function () {
+    // все заполненные поля стираются
+    noticeForm.reset();
+
+    // метки похожих объявлений удаляются
+    var mapPins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var i = 0, n = mapPins.length; i < n; i++) {
+      map.querySelector('.map__pins').removeChild(mapPins[i]);
+    }
+
+    // карточка активного объявления удаляется
+    var articles = map.querySelectorAll('.map__card');
+    for (i = 0, n = articles.length; i < n; i++) {
+      map.removeChild(articles[i]);
+    }
+
+    // метка адреса возвращается в исходное положение
+    // TODO implement this in module5
+
+    // значение поля адреса корректируется соответственно положению метки
+    fillAddressField();
+  };
+
+  var submitFormHandler = function () {
+    noticeForm.submit();
+
+    // TODO: remove this stuff later
+    // console.log('successfully submitted');
+    // evt.preventDefault();
+    // resetPage();
+  };
+
+  var initializeFormListeners = function () {
     var typeEl = noticeForm.querySelector('#type');
     var timeInEl = noticeForm.querySelector('#timein');
     var timeOutEl = noticeForm.querySelector('#timeout');
     var roomNumberEl = noticeForm.querySelector('#room_number');
     var capacityEl = noticeForm.querySelector('#capacity');
+    var resetButtonEl = noticeForm.querySelector('.form__reset');
 
     typeEl.addEventListener('change', changeTypeHandler);
     timeInEl.addEventListener('change', changeTimeInHandler);
     timeOutEl.addEventListener('change', changeTimeOutHandler);
     roomNumberEl.addEventListener('change', changeRoomNumberHandler);
     capacityEl.addEventListener('change', changeCapacityHandler);
+    resetButtonEl.addEventListener('click', clickResetButtonHandler)
+    noticeForm.addEventListener('submit', submitFormHandler)
   };
 
   var runForm = function () {
     changePrices();
     changeRoomNumber();
-    validateForm();
+    initializeFormListeners();
   };
 
   runForm();
-
-  // document.addEventListener('submit', function (evt) {
-  //   evt.preventDefault();
-  //   console.log('successfully submitted');
-  // });
 })();
