@@ -64,8 +64,6 @@
   var PIN_INITIAL_X = (X_COORD_MAX - X_COORD_MIN) / 2;
   var PIN_INITIAL_Y = (Y_COORD_MAX - Y_COORD_MIN) / 2;
 
-  var NOTICE_FORM_ACTION_PATH = 'https://js.dump.academy/keksobooking';
-
   var getRandomNumber = function (value) {
     if (!value) {
       return value;
@@ -333,64 +331,37 @@
 
   // disable page by default
   var isPageActivated = false;
-  // switchFieldsetsActivation(isPageActivated);
-  activatePage(true);
+  switchFieldsetsActivation(isPageActivated);
 
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
 
   // form validation
-  var TITLE_LENGTH_MIN = 30;
-  var TITLE_LENGTH_MAX = 1000;
-  var PRICE_LENGTH_MAX = 1000000;
+  var changeTypeHandler = function () {
+    changePrices();
+  };
 
-  noticeForm.action = NOTICE_FORM_ACTION_PATH;
+  var changePrices = function () {
+    var typeEl = noticeForm.querySelector('#type');
+    var priceEl = noticeForm.querySelector('#price');
 
-  var titleEl = noticeForm.querySelector('#title');
-  titleEl.required = true;
-  titleEl.minLength = 2;
-  // titleEl.minLength = TITLE_LENGTH_MIN;
-  // titleEl.maxLength = TITLE_LENGTH_MAX;
-
-  var addressEl = noticeForm.querySelector('#address');
-  addressEl.required = true;
-  // addressEl.disabled = true;
-
-  var typeEl = noticeForm.querySelector('#type');
-  // typeEl.required = true;
-
-  var priceEl = noticeForm.querySelector('#price');
-  // priceEl.required = true;
-  priceEl.max = PRICE_LENGTH_MAX;
-
-  var timeInEl = noticeForm.querySelector('#timein');
-  // timeInEl.required = true;
-
-  var timeOutEl = noticeForm.querySelector('#timeout');
-  // timeOutEl.required = true;
-
-  var roomNumberEl = noticeForm.querySelector('#room_number');
-  // roomNumberEl.required = true;
-
-  var capacityEl = noticeForm.querySelector('#capacity');
-  // capacityEl.required = true;
-
-  var changeTypeHandler = function (evt) {
-    if (evt.target.value === TYPES[0]) {
+    if (typeEl.value === TYPES[0]) {
       priceEl.min = PRICE_MIN_FLAT;
       priceEl.placeholder = PRICE_MIN_FLAT;
-    } else if (evt.target.value === TYPES[1]) {
+    } else if (typeEl.value === TYPES[1]) {
       priceEl.min = PRICE_MIN_HOUSE;
       priceEl.placeholder = PRICE_MIN_HOUSE;
-    } else if (evt.target.value === TYPES[2]) {
+    } else if (typeEl.value === TYPES[2]) {
       priceEl.min = PRICE_MIN_BUNGALO;
       priceEl.placeholder = PRICE_MIN_BUNGALO;
-    } else if (evt.target.value === 'palace') {
+    } else if (typeEl.value === 'palace') {
       priceEl.min = PRICE_MIN_PALACE;
       priceEl.placeholder = PRICE_MIN_PALACE;
     }
   };
 
   var changeTimeInHandler = function (evt) {
+    var timeOutEl = noticeForm.querySelector('#timeout');
+
     if (evt.target.value === TIME_VALUES[0]) {
       timeOutEl.value = TIME_VALUES[0];
     } else if (evt.target.value === TIME_VALUES[1]) {
@@ -401,6 +372,8 @@
   };
 
   var changeTimeOutHandler = function (evt) {
+    var timeInEl = noticeForm.querySelector('#timein');
+
     if (evt.target.value === TIME_VALUES[0]) {
       timeInEl.value = TIME_VALUES[0];
     } else if (evt.target.value === TIME_VALUES[1]) {
@@ -410,8 +383,10 @@
     }
   };
 
-
   var changeRoomNumber = function () {
+    var roomNumberEl = noticeForm.querySelector('#room_number');
+    var capacityEl = noticeForm.querySelector('#capacity');
+
     var guests = capacityEl.querySelectorAll('option');
     var notForGuests =  capacityEl.querySelector('option[value="0"]');
     notForGuests.disabled = true;
@@ -432,6 +407,8 @@
   };
 
   var validateCapacity = function () {
+    var capacityEl = noticeForm.querySelector('#capacity');
+
     if  (capacityEl.selectedOptions[0].hasAttribute('disabled')) {
       capacityEl.setCustomValidity('Выбрано неверное значение');
     } else {
@@ -448,6 +425,12 @@
   };
 
   var validateForm = function () {
+    var typeEl = noticeForm.querySelector('#type');
+    var timeInEl = noticeForm.querySelector('#timein');
+    var timeOutEl = noticeForm.querySelector('#timeout');
+    var roomNumberEl = noticeForm.querySelector('#room_number');
+    var capacityEl = noticeForm.querySelector('#capacity');
+
     typeEl.addEventListener('change', changeTypeHandler);
     timeInEl.addEventListener('change', changeTimeInHandler);
     timeOutEl.addEventListener('change', changeTimeOutHandler);
@@ -456,14 +439,15 @@
   };
 
   var runForm = function () {
+    changePrices();
     changeRoomNumber();
     validateForm();
   };
 
   runForm();
 
-  document.addEventListener('submit', function (evt) {
-    evt.preventDefault();
-    console.log('successfully submitted');
-  });
+  // document.addEventListener('submit', function (evt) {
+  //   evt.preventDefault();
+  //   console.log('successfully submitted');
+  // });
 })();
