@@ -393,7 +393,7 @@
     var capacityEl = noticeForm.querySelector('#capacity');
 
     var guests = capacityEl.querySelectorAll('option');
-    var notForGuests =  capacityEl.querySelector('option[value="0"]');
+    var notForGuests = capacityEl.querySelector('option[value="0"]');
     notForGuests.disabled = true;
 
     for (var i = 0, n = guests.length; i < n; i++) {
@@ -414,7 +414,7 @@
   var validateCapacity = function () {
     var capacityEl = noticeForm.querySelector('#capacity');
 
-    if  (capacityEl.selectedOptions[0].hasAttribute('disabled')) {
+    if (capacityEl.selectedOptions[0].hasAttribute('disabled')) {
       capacityEl.setCustomValidity('Выбрано неверное значение');
     } else {
       capacityEl.setCustomValidity('');
@@ -478,8 +478,8 @@
     timeOutEl.addEventListener('change', changeTimeOutHandler);
     roomNumberEl.addEventListener('change', changeRoomNumberHandler);
     capacityEl.addEventListener('change', changeCapacityHandler);
-    resetButtonEl.addEventListener('click', clickResetButtonHandler)
-    noticeForm.addEventListener('submit', submitFormHandler)
+    resetButtonEl.addEventListener('click', clickResetButtonHandler);
+    noticeForm.addEventListener('submit', submitFormHandler);
   };
 
   var runForm = function () {
