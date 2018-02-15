@@ -21,11 +21,13 @@
         <img src="img/main-pin-image.png" width="40" height="44" draggable="false">
         <svg viewBox="0 0 70 70">
           <defs>
-            <path d="M35,35m-23,0a23,23 0 1,1 46,0a23,23 0 1,1 -46,0" id="tophalf" />
+            <path d="M35,35m-23,0a23,23 0 1,1 46,0a23,23 0 1,1 -46,0" id="tophalf"/>
           </defs>
 
-          <ellipse cx="35" cy="35" rx="35" ry="35" fill="rgba(255, 86, 53, 0.7)" />
-          <text><textPath xlink:href="#tophalf" startOffset="0">Поставь меня куда-нибудь</textPath></text>
+          <ellipse cx="35" cy="35" rx="35" ry="35" fill="rgba(255, 86, 53, 0.7)"/>
+          <text>
+            <textPath xlink:href="#tophalf" startOffset="0">Поставь меня куда-нибудь</textPath>
+          </text>
         </svg>
       </button>
     </div>
@@ -77,7 +79,7 @@
 
           <input type="checkbox" name="features" value="conditioner" id="filter-conditioner">
           <label class="feature feature--conditioner" for="filter-conditioner">Кондиционер</label>
-         </fieldset>
+        </fieldset>
       </form>
     </div>
   </section>
@@ -91,11 +93,13 @@
         <div class="notice__photo">
           <div class="upload">
             <div class="notice__preview">
-              <img src="img/muffin.png" alt="Аватар пользователя"  width="40" height="44">
+              <img src="img/muffin.png" alt="Аватар пользователя" width="40" height="44">
             </div>
             <input type="file" id="avatar">
             <label class="drop-zone" for="avatar">Загрузите или&nbsp;перетащите сюда фото</label>
-            <p class="notice__info">Заполните все обязательные поля, назначьте цену, загрузите фотографии. Придумайте интересное описание. Оно сделает объявление более живым и привлекательным. Получившееся объявление должно давать гостям полное представление о вашем жилье.</p>
+            <p class="notice__info">Заполните все обязательные поля, назначьте цену, загрузите фотографии. Придумайте
+              интересное описание. Оно сделает объявление более живым и привлекательным. Получившееся объявление должно
+              давать гостям полное представление о вашем жилье.</p>
           </div>
         </div>
       </fieldset>
@@ -183,7 +187,8 @@
 
       <fieldset class="form__element form__element--wide">
         <label for="description">Описание (не обязательно)</label>
-        <textarea id="description" name="description" placeholder="Здесь расскажите о том, какое ваше жилье замечательное и вообще"></textarea>
+        <textarea id="description" name="description"
+                  placeholder="Здесь расскажите о том, какое ваше жилье замечательное и вообще"></textarea>
       </fieldset>
 
       <fieldset class="form__element form__element--wide">
@@ -198,7 +203,8 @@
 
       <fieldset class="form__element form__element--submit">
         <button class="form__submit" type="submit">Опубликовать</button>
-        или <button class="form__reset" type="reset">очистить</button>
+        или
+        <button class="form__reset" type="reset">очистить</button>
       </fieldset>
     </form>
   </div>
@@ -207,13 +213,18 @@
 <footer class="footer container">
   <div class="center-wrapper">
     <section class="footer-logo">
-      Сделано в <a tabindex="1" href="https://htmlacademy.ru/intensive/javascript" class="footer-logo-link"><img src="img/ha-logo.png" class="footer-logo-image" width="130" alt="HTML Academy">HTML Academy</a> &copy; 2018
+      Сделано в <a tabindex="1" href="https://htmlacademy.ru/intensive/javascript" class="footer-logo-link"><img
+      src="img/ha-logo.png" class="footer-logo-image" width="130" alt="HTML Academy">HTML Academy</a> &copy; 2018
     </section>
     <nav class="footer-social">
-      <a href="https://twitter.com/htmlacademy_ru" class="footer-social-item footer-social-item-twitter" target="_blank" rel="nofollow">Twitter</a>
-      <a href="https://www.instagram.com/htmlacademy/" class="footer-social-item footer-social-item-instagram" target="_blank" rel="nofollow">Instagtam</a>
-      <a href="https://www.facebook.com/htmlacademy" class="footer-social-item footer-social-item-facebook" target="_blank" rel="nofollow">Facebook</a>
-      <a href="https://vk.com/htmlacademy" class="footer-social-item footer-social-item-vk" target="_blank" rel="nofollow">VK</a>
+      <a href="https://twitter.com/htmlacademy_ru" class="footer-social-item footer-social-item-twitter" target="_blank"
+         rel="nofollow">Twitter</a>
+      <a href="https://www.instagram.com/htmlacademy/" class="footer-social-item footer-social-item-instagram"
+         target="_blank" rel="nofollow">Instagtam</a>
+      <a href="https://www.facebook.com/htmlacademy" class="footer-social-item footer-social-item-facebook"
+         target="_blank" rel="nofollow">Facebook</a>
+      <a href="https://vk.com/htmlacademy" class="footer-social-item footer-social-item-vk" target="_blank"
+         rel="nofollow">VK</a>
     </nav>
   </div>
 </footer>
@@ -223,7 +234,9 @@
     <img src="img/avatars/user01.png" class="popup__avatar" width="70" height="70">
     <button class="popup__close">Закрыть</button>
     <h3>Уютное гнездышко для молодоженов</h3>
-    <p><small>102-0082 Tōkyō-to, Chiyoda-ku, Ichibanchō, 14−3</small></p>
+    <p>
+      <small>102-0082 Tōkyō-to, Chiyoda-ku, Ichibanchō, 14−3</small>
+    </p>
     <p class="popup__price">5200&#x20bd;/ночь</p>
     <h4>Квартира</h4>
     <p>2 комнаты для 3 гостей</p>
@@ -236,13 +249,15 @@
       <li class="feature feature--elevator"></li>
       <li class="feature feature--conditioner"></li>
     </ul>
-    <p>Великолепная квартира-студия в центре Токио. Подходит как туристам, так и бизнесменам. Квартира полностью укомплектована и недавно отремонтирована.</p>
+    <p>Великолепная квартира-студия в центре Токио. Подходит как туристам, так и бизнесменам. Квартира полностью
+      укомплектована и недавно отремонтирована.</p>
     <ul class="popup__pictures">
       <li><img src=""></li>
     </ul>
   </article>
 
-  <button style="left: 200px; top: 400px;" class="map__pin"><img src="img/avatars/user07.png" width="40" height="40" draggable="false"></button>
+  <button style="left: 200px; top: 400px;" class="map__pin"><img src="img/avatars/user07.png" width="40" height="40"
+                                                                 draggable="false"></button>
 </template>
 
 <script src="js/map.js"></script>
