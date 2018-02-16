@@ -118,8 +118,8 @@
     var titlesTemp = TITLES.slice();
 
     for (var i = 0; i < numberOfAds; i++) {
-      var xValue = window.map.randomCoordX;
-      var yValue = window.map.randomCoordY;
+      var xValue = window.util.map.x.randomizedValue;
+      var yValue = window.util.map.y.randomizedValue;
 
       var ad = {
         author: {
@@ -139,8 +139,8 @@
           photos: getRandomPhotos(PHOTOS)
         },
         location: {
-          x: xValue + window.pin.width / 2,
-          y: yValue + window.pin.height
+          x: xValue + window.util.pin.width / 2,
+          y: yValue + window.util.pin.height
         }
       };
       ads.push(ad);
@@ -150,6 +150,11 @@
   };
 
   window.data = {
-    ads: getAds
+    ads: getAds,
+    constants: {
+      features: FEATURES,
+      timeValues: TIME_VALUES,
+      types: TYPES
+    }
   }
 })();
