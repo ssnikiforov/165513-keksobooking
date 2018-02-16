@@ -54,6 +54,12 @@
   var Y_COORD_MIN = 150;
   var Y_COORD_MAX = 500;
 
+  var MAP_PIN_WIDTH = 62;
+  var MAP_PIN_HEIGHT = 84;
+
+  var PIN_INITIAL_X = (X_COORD_MAX - X_COORD_MIN) / 2;
+  var PIN_INITIAL_Y = (Y_COORD_MAX - Y_COORD_MIN) / 2;
+
   var getRandomNumber = function (value) {
     if (!value) {
       return value;
@@ -162,8 +168,8 @@
           photos: getRandomPhotos(PHOTOS)
         },
         location: {
-          x: xValue,
-          y: yValue
+          x: xValue + MAP_PIN_WIDTH / 2,
+          y: yValue + MAP_PIN_HEIGHT
         }
       };
       ads.push(ad);
@@ -190,10 +196,18 @@
     for (var i = 0, n = ads.length; i < n; i++) {
       var pinElementTemplate = mapPinsTemplate.cloneNode(true);
 
-      fragment.appendChild(renderMapPin(pinElementTemplate, ads[i]));
+      var renderedPinElement = renderMapPin(pinElementTemplate, ads[i]);
+      addClickListener(renderedPinElement, ads[i]);
+      fragment.appendChild(renderedPinElement);
     }
 
     map.querySelector('.map__pins').appendChild(fragment);
+  };
+
+  var addClickListener = function (pinElement, ad) {
+    pinElement.addEventListener('click', function () {
+      renderNotice(ad);
+    });
   };
 
   var modifyFeatures = function (featureListElement, ad) {
@@ -235,55 +249,85 @@
     }
   };
 
-  var modifyArticle = function (template, ad) {
-    var articleElement = template.cloneNode(true);
-    articleElement.querySelector('h3').textContent = ad.offer.title;
-    articleElement.querySelector('p small').textContent = ad.offer.address;
-    articleElement.querySelector('.popup__price').textContent = '';
+  var modifyNotice = function (template, ad) {
+    var noticeElement = template.cloneNode(true);
+    noticeElement.querySelector('h3').textContent = ad.offer.title;
+    noticeElement.querySelector('p small').textContent = ad.offer.address;
+    noticeElement.querySelector('.popup__price').textContent = '';
 
     var priceEl = document.createTextNode(ad.offer.price + ' \u20BD/ночь');
-    articleElement.querySelector('.popup__price').appendChild(priceEl);
+    noticeElement.querySelector('.popup__price').appendChild(priceEl);
 
-    var typeEl = articleElement.querySelector('h4');
+    var typeEl = noticeElement.querySelector('h4');
     modifyTypes(typeEl, ad);
 
-    var roomsAndGuestEl = articleElement.querySelector('h4').nextElementSibling;
+    var roomsAndGuestEl = noticeElement.querySelector('h4').nextElementSibling;
     roomsAndGuestEl.textContent = ad.offer.rooms + ' комнаты для ' + ad.offer.guests + ' гостей';
 
     var checkInCheckOutEl = roomsAndGuestEl.nextElementSibling;
     checkInCheckOutEl.textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
 
-    var featuresListEl = articleElement.querySelector('.popup__features');
+    var featuresListEl = noticeElement.querySelector('.popup__features');
     modifyFeatures(featuresListEl, ad);
 
     var descriptionEl = featuresListEl.nextElementSibling;
     descriptionEl.textContent = ad.offer.description;
 
-    var photosListEl = articleElement.querySelector('.popup__pictures');
+    var photosListEl = noticeElement.querySelector('.popup__pictures');
     modifyPhotos(photosListEl, ad);
 
-    articleElement.querySelector('.popup__avatar').src = ad.author.avatar;
+    noticeElement.querySelector('.popup__avatar').src = ad.author.avatar;
 
-    return articleElement;
+    return noticeElement;
   };
 
-  var renderArticle = function (map, template, ad) {
-    var articleTemplate = template.querySelector('.map__card');
-    var articleElementTemplate = articleTemplate.cloneNode(true);
+  var renderNotice = function (ad) {
+    var noticeTemplate = template.querySelector('.map__card');
+    var noticeElementTemplate = noticeTemplate.cloneNode(true);
     var fragment = document.createDocumentFragment();
 
-    fragment.appendChild(modifyArticle(articleElementTemplate, ad));
+    fragment.appendChild(modifyNotice(noticeElementTemplate, ad));
 
-    map.querySelector('.map__filters-container').appendChild(fragment);
+    var mapFiltersContainer = map.querySelector('.map__filters-container');
+    map.insertBefore(fragment, mapFiltersContainer);
   };
 
-  var ads = getAds(NUMBER_OF_ADS);
+  var switchFieldsetsActivation = function (activationFlag) {
+    for (var i = 0, n = noticeFieldsets.length; i < n; i++) {
+      noticeFieldsets[i].disabled = !activationFlag;
+    }
+  };
+
+  var activatePage = function (activationFlag) {
+    map.classList.remove('map--faded');
+    noticeForm.classList.remove('notice__form--disabled');
+    switchFieldsetsActivation(activationFlag);
+  };
+
+  var mainPinMoveHandler = function () {
+    activatePage(true);
+    fillAddressField();
+    renderMapPins(map, template, ads);
+  };
+
+  var fillAddressField = function () {
+    var addressFormField = noticeForm.querySelector('#address');
+    var mainPinX = PIN_INITIAL_X - MAP_PIN_WIDTH / 2;
+    var mainPinY = PIN_INITIAL_Y - MAP_PIN_HEIGHT;
+
+    addressFormField.value = mainPinX + ', ' + mainPinY;
+  };
 
   var map = document.querySelector('.map');
-  map.classList.remove('.map--faded');
-
   var template = document.querySelector('template').content;
+  var noticeForm = document.querySelector('.notice__form');
+  var noticeFieldsets = noticeForm.querySelectorAll('.form__element');
+  var mainPin = map.querySelector('.map__pin--main');
+  var ads = getAds(NUMBER_OF_ADS);
 
-  renderMapPins(map, template, ads);
-  renderArticle(map, template, ads[0]);
+  // disable page by default
+  var isPageActivated = false;
+  switchFieldsetsActivation(isPageActivated);
+
+  mainPin.addEventListener('mouseup', mainPinMoveHandler);
 })();
