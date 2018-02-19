@@ -119,7 +119,7 @@
   };
 
   var resetPage = function () {
-    window.map = document.querySelector('.map');
+    var map = window.map.mapEl;
 
     // все заполненные поля стираются
     noticeForm.reset();
@@ -131,9 +131,9 @@
     }
 
     // карточка активного объявления удаляется
-    var articles = map.querySelectorAll('.map__card');
-    for (i = 0, n = articles.length; i < n; i++) {
-      map.removeChild(articles[i]);
+    var cards = map.querySelectorAll('.map__card');
+    for (i = 0, n = cards.length; i < n; i++) {
+      map.removeChild(cards[i]);
     }
 
     // метка адреса возвращается в исходное положение
