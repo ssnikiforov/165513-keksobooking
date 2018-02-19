@@ -483,6 +483,7 @@
   };
 
   var runForm = function () {
+    fillAddressField();
     changePrices();
     changeRoomNumber();
     initializeFormListeners();
