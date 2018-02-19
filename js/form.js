@@ -119,7 +119,7 @@
   };
 
   var resetPage = function () {
-    var map = document.querySelector('.map');
+    window.map = document.querySelector('.map');
 
     // все заполненные поля стираются
     noticeForm.reset();

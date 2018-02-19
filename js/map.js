@@ -150,7 +150,5 @@
 
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
 
-  window.map = {
-
-  };
+  window.map = map;
 })();
