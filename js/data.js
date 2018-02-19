@@ -118,8 +118,8 @@
     var titlesTemp = TITLES.slice();
 
     for (var i = 0; i < numberOfAds; i++) {
-      var xValue = window.util.map.x.randomizedValue();
-      var yValue = window.util.map.y.randomizedValue();
+      var xValue = window.util.map.x.getRandomizedValue();
+      var yValue = window.util.map.y.getRandomizedValue();
 
       var ad = {
         author: {
@@ -150,7 +150,7 @@
   };
 
   window.data = {
-    ads: getAds,
+    getAds: getAds,
     constants: {
       features: FEATURES,
       timeValues: TIME_VALUES,

@@ -37,14 +37,14 @@
       x: {
         min: X_COORD_MIN,
         max: X_COORD_MAX,
-        randomizedValue: function () {
+        getRandomizedValue: function () {
           return window.util.getRandomNumberFromRange(X_COORD_MIN, X_COORD_MAX);
         }
       },
       y: {
         min: Y_COORD_MIN,
         max: Y_COORD_MAX,
-        randomizedValue: function () {
+        getRandomizedValue: function () {
           return window.util.getRandomNumberFromRange(Y_COORD_MIN, Y_COORD_MAX);
         }
       }

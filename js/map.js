@@ -142,7 +142,7 @@
   var template = document.querySelector('template').content;
   var noticeForm = document.querySelector('.notice__form');
   var mainPin = map.querySelector('.map__pin--main');
-  var ads = window.data.ads(NUMBER_OF_ADS);
+  var ads = window.data.getAds(NUMBER_OF_ADS);
 
   // disable page by default
   var isPageActivated = false;
