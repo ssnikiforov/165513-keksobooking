@@ -32,7 +32,7 @@
     var priceEl = noticeForm.querySelector('#price');
     var typesConstants = window.data.constants.types;
 
-    if (typeEl.value ===  typesConstants[0]) {
+    if (typeEl.value === typesConstants[0]) {
       priceEl.min = PRICE_MIN_FLAT;
       priceEl.placeholder = PRICE_MIN_FLAT;
     } else if (typeEl.value === typesConstants[1]) {
@@ -119,6 +119,8 @@
   };
 
   var resetPage = function () {
+    var map = document.querySelector('.map');
+
     // все заполненные поля стираются
     noticeForm.reset();
 

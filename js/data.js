@@ -118,8 +118,8 @@
     var titlesTemp = TITLES.slice();
 
     for (var i = 0; i < numberOfAds; i++) {
-      var xValue = window.util.map.x.randomizedValue;
-      var yValue = window.util.map.y.randomizedValue;
+      var xValue = window.util.map.x.randomizedValue();
+      var yValue = window.util.map.y.randomizedValue();
 
       var ad = {
         author: {
@@ -156,5 +156,5 @@
       timeValues: TIME_VALUES,
       types: TYPES
     }
-  }
+  };
 })();
