@@ -173,6 +173,14 @@
     noticeForm.addEventListener('submit', submitFormHandler);
   };
 
+  var switchFieldsetsActivation = function (activationFlag) {
+    var noticeFieldsets = noticeForm.querySelectorAll('.form__element');
+
+    for (var i = 0, n = noticeFieldsets.length; i < n; i++) {
+      noticeFieldsets[i].disabled = !activationFlag;
+    }
+  };
+
   var runForm = function () {
     fillAddressField();
     changePrices();
@@ -180,9 +188,9 @@
     initializeFormListeners();
   };
 
-  runForm();
-
   window.form = {
-    fillAddressField: fillAddressField
+    fillAddressField: fillAddressField,
+    switchFieldsetsActivation: switchFieldsetsActivation,
+    runForm: runForm
   };
 })();
