@@ -24,13 +24,12 @@
     }
   };
 
+  window.form.runForm();
+
   // disable page by default
   var isPageActivated = false;
   window.form.switchFieldsetsActivation(isPageActivated);
 
-  mainPin.addEventListener('mouseup', mainPinMoveHandler);
-
-  window.form.runForm();
-
+  mainPin.addEventListener('mousedown', mainPinMoveHandler);
   mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDownMainPinHandler);
 })();
