@@ -31,4 +31,6 @@
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
 
   window.form.runForm();
+
+  mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDownMainPinHandler);
 })();
