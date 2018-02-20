@@ -19,7 +19,7 @@
     yCoordinate = typeof yCoordinate !== 'undefined' ? yCoordinate : PIN_INITIAL_Y;
 
     var addressFormField = noticeForm.querySelector('#address');
-    var mainPinX = xCoordinate - window.util.pin.width / 2;
+    var mainPinX = xCoordinate;
     var mainPinY = yCoordinate - window.util.pin.height;
 
     addressFormField.value = mainPinX + ', ' + mainPinY;
