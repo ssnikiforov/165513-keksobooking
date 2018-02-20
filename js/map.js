@@ -454,7 +454,9 @@
     mainPin.style.removeProperty('left');
 
     // значение поля адреса корректируется соответственно положению метки
-    fillAddressField();
+    setTimeout(function () { /* без таймера - value у input#address не устанавливается :( */
+      fillAddressField();
+    }, 100);
   };
 
   var submitFormHandler = function () {
