@@ -142,7 +142,7 @@
     mainPin.style.removeProperty('left');
 
     // значение поля адреса корректируется соответственно положению метки
-    setTimeout(function () {
+    setTimeout(function () { /* без таймера - value у input#address не устанавливается :( */
       fillAddressField();
     }, 100);
   };
