@@ -120,6 +120,7 @@
 
   var resetPage = function () {
     var map = window.map.mapEl;
+    var mainPin = window.map.mainPinEl;
 
     // все заполненные поля стираются
     noticeForm.reset();
@@ -137,10 +138,13 @@
     }
 
     // метка адреса возвращается в исходное положение
-    // TODO implement this in module5
+    mainPin.style.removeProperty('top');
+    mainPin.style.removeProperty('left');
 
     // значение поля адреса корректируется соответственно положению метки
-    fillAddressField();
+    setTimeout(function () {
+      fillAddressField();
+    }, 100);
   };
 
   var submitFormHandler = function () {
@@ -170,6 +174,7 @@
   };
 
   var runForm = function () {
+    fillAddressField();
     changePrices();
     changeRoomNumber();
     initializeFormListeners();

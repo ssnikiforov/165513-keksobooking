@@ -58,6 +58,7 @@
 
   window.map = {
     mapEl: map,
+    mainPinEl: mainPin,
     templateEl: template
   };
 })();
