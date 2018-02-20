@@ -28,12 +28,36 @@
         y: moveEvt.clientY
       };
 
-      var topOffset = mainPin.offsetTop - shift.y;
       var leftOffset = mainPin.offsetLeft - shift.x;
-      mainPin.style.top = topOffset + 'px';
-      mainPin.style.left = leftOffset + 'px';
+      var topOffset = mainPin.offsetTop - shift.y;
 
-      window.form.fillAddressField();
+      var pinOffset = calculatePinOffset(leftOffset, topOffset);
+
+      mainPin.style.left = pinOffset.left + 'px';
+      mainPin.style.top = pinOffset.top + 'px';
+
+      window.form.fillAddressField(pinOffset.left, pinOffset.top);
+    };
+
+    var calculatePinOffset = function (leftOffset, topOffset) {
+      var xCoordMax = window.util.map.x.max;
+      var xCoordMin = window.util.map.x.min;
+      var yCoordMax = window.util.map.y.max;
+      var yCoordMin = window.util.map.y.min;
+
+      if (leftOffset > xCoordMax) {
+        leftOffset = xCoordMax;
+      } else if (leftOffset < xCoordMin) {
+        leftOffset = xCoordMin;
+      }
+
+      if (topOffset > yCoordMax) {
+        topOffset = yCoordMax;
+      } else if (topOffset < yCoordMin) {
+        topOffset = yCoordMin;
+      }
+
+      return {left: leftOffset, top: topOffset};
     };
 
     var painPinMouseUpHandler = function (upEvt) {

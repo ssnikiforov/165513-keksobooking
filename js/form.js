@@ -14,10 +14,13 @@
 
   var NOT_FOR_GUESTS_OPTION_VALUE = 100;
 
-  var fillAddressField = function () {
+  var fillAddressField = function (xCoordinate, yCoordinate) {
+    xCoordinate = typeof xCoordinate !== 'undefined' ? xCoordinate : PIN_INITIAL_X;
+    yCoordinate = typeof yCoordinate !== 'undefined' ? yCoordinate : PIN_INITIAL_Y;
+
     var addressFormField = noticeForm.querySelector('#address');
-    var mainPinX = PIN_INITIAL_X - window.util.pin.width / 2;
-    var mainPinY = PIN_INITIAL_Y - window.util.pin.height;
+    var mainPinX = xCoordinate - window.util.pin.width / 2;
+    var mainPinY = yCoordinate - window.util.pin.height;
 
     addressFormField.value = mainPinX + ', ' + mainPinY;
   };
@@ -149,11 +152,6 @@
 
   var submitFormHandler = function () {
     noticeForm.submit();
-
-    // TODO: remove this stuff later
-    // console.log('successfully submitted');
-    // evt.preventDefault();
-    // resetPage();
   };
 
   var initializeFormListeners = function () {

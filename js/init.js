@@ -16,9 +16,12 @@
   };
 
   var mainPinMoveHandler = function () {
-    activatePage(true);
-    window.form.fillAddressField();
-    window.map.renderMapPins(map, template, ads);
+    if (!isPageActivated) {
+      isPageActivated = true;
+      activatePage(isPageActivated);
+      window.map.renderMapPins(map, template, ads);
+      window.form.fillAddressField();
+    }
   };
 
   // disable page by default
