@@ -55,10 +55,4 @@
   switchFieldsetsActivation(isPageActivated);
 
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
-
-  window.map = {
-    mapEl: map,
-    mainPinEl: mainPin,
-    templateEl: template
-  };
 })();

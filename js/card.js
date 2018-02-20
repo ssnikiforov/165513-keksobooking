@@ -74,8 +74,9 @@
   };
 
   var renderNotice = function (ad) {
-    var map = window.map.mapEl;
-    var noticeTemplate = window.map.templateEl.querySelector('.map__card');
+    var map = document.querySelector('.map');
+    var templateEl = document.querySelector('template').content;
+    var noticeTemplate = templateEl.querySelector('.map__card');
     var noticeElementTemplate = noticeTemplate.cloneNode(true);
     var fragment = document.createDocumentFragment();
 

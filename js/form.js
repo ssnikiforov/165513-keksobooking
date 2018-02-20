@@ -119,8 +119,8 @@
   };
 
   var resetPage = function () {
-    var map = window.map.mapEl;
-    var mainPin = window.map.mainPinEl;
+    var map = document.querySelector('.map');
+    var mainPin = map.querySelector('.map__pin--main');
 
     // все заполненные поля стираются
     noticeForm.reset();
