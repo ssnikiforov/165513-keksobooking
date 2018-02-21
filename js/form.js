@@ -123,7 +123,7 @@
 
   var resetPage = function (evt) {
     evt.preventDefault();
-    
+
     var map = document.querySelector('.map');
     var mainPin = map.querySelector('.map__pin--main');
 
