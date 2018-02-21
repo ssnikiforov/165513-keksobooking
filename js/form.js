@@ -117,11 +117,13 @@
     changeRoomNumber();
   };
 
-  var clickResetButtonHandler = function () {
-    resetPage();
+  var clickResetButtonHandler = function (evt) {
+    resetPage(evt);
   };
 
-  var resetPage = function () {
+  var resetPage = function (evt) {
+    evt.preventDefault();
+    
     var map = document.querySelector('.map');
     var mainPin = map.querySelector('.map__pin--main');
 
@@ -145,9 +147,7 @@
     mainPin.style.removeProperty('left');
 
     // значение поля адреса корректируется соответственно положению метки
-    setTimeout(function () { /* без таймера - value у input#address не устанавливается :( */
-      fillAddressField();
-    }, 100);
+    fillAddressField();
   };
 
   var submitFormHandler = function () {
