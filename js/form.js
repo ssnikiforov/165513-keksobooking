@@ -3,10 +3,6 @@
 (function () {
   var noticeForm = document.querySelector('.notice__form');
 
-  var mapCoordinates = window.util.map;
-  var PIN_INITIAL_X = (mapCoordinates.x.max - mapCoordinates.x.min) / 2;
-  var PIN_INITIAL_Y = (mapCoordinates.y.max - mapCoordinates.y.min) / 2;
-
   var PRICE_MIN_BUNGALO = 0;
   var PRICE_MIN_FLAT = 1000;
   var PRICE_MIN_HOUSE = 5000;
@@ -16,8 +12,13 @@
 
   var fillAddressField = function () {
     var addressFormField = noticeForm.querySelector('#address');
-    var mainPinX = PIN_INITIAL_X - window.util.pin.width / 2;
-    var mainPinY = PIN_INITIAL_Y - window.util.pin.height;
+    var mapCoordinates = window.util.map;
+    var pinDimensions = window.util.pin;
+
+    var initialPinX = (mapCoordinates.x.max - mapCoordinates.x.min) / 2;
+    var initialPinY = (mapCoordinates.x.max - mapCoordinates.x.min) / 2;
+    var mainPinX = initialPinX - pinDimensions.width / 2;
+    var mainPinY = initialPinY - pinDimensions.height;
 
     addressFormField.value = mainPinX + ', ' + mainPinY;
   };
