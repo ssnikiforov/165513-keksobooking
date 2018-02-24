@@ -13,7 +13,7 @@
     '14:00'
   ];
 
-  var noticeForm = document.querySelector('.notice__form');
+  var cardsForm = document.querySelector('.notice__form');
 
   var PRICE_MIN_BUNGALO = 0;
   var PRICE_MIN_FLAT = 1000;
@@ -23,7 +23,7 @@
   var NOT_FOR_GUESTS_OPTION_VALUE = 100;
 
   var fillAddressField = function (xCoordinate, yCoordinate) {
-    var addressFormField = noticeForm.querySelector('#address');
+    var addressFormField = cardsForm.querySelector('#address');
     var initialPinX = (window.map.mapX.max - window.map.mapX.min) / 2;
     var initialPinY = (window.map.mapY.max - window.map.mapY.min) / 2;
 
@@ -42,8 +42,8 @@
   };
 
   var changePrices = function () {
-    var typeEl = noticeForm.querySelector('#type');
-    var priceEl = noticeForm.querySelector('#price');
+    var typeEl = cardsForm.querySelector('#type');
+    var priceEl = cardsForm.querySelector('#price');
     var typesConstants = TYPES;
 
     if (typeEl.value === typesConstants[0]) {
@@ -62,7 +62,7 @@
   };
 
   var changeTimeInHandler = function (evt) {
-    var timeOutEl = noticeForm.querySelector('#timeout');
+    var timeOutEl = cardsForm.querySelector('#timeout');
     var timeValuesConstants = TIME_VALUES;
 
     if (evt.target.value === timeValuesConstants[0]) {
@@ -75,7 +75,7 @@
   };
 
   var changeTimeOutHandler = function (evt) {
-    var timeInEl = noticeForm.querySelector('#timein');
+    var timeInEl = cardsForm.querySelector('#timein');
     var timeValuesConstants = TIME_VALUES;
 
     if (evt.target.value === timeValuesConstants[0]) {
@@ -88,8 +88,8 @@
   };
 
   var changeRoomNumber = function () {
-    var roomNumberEl = noticeForm.querySelector('#room_number');
-    var capacityEl = noticeForm.querySelector('#capacity');
+    var roomNumberEl = cardsForm.querySelector('#room_number');
+    var capacityEl = cardsForm.querySelector('#capacity');
 
     var guests = capacityEl.querySelectorAll('option');
     var notForGuests = capacityEl.querySelector('option[value="0"]');
@@ -111,7 +111,7 @@
   };
 
   var validateCapacity = function () {
-    var capacityEl = noticeForm.querySelector('#capacity');
+    var capacityEl = cardsForm.querySelector('#capacity');
 
     if (capacityEl.selectedOptions[0].hasAttribute('disabled')) {
       capacityEl.setCustomValidity('Выбрано неверное значение');
@@ -139,7 +139,7 @@
     var mainPin = map.querySelector('.map__pin--main');
 
     // все заполненные поля стираются
-    noticeForm.reset();
+    cardsForm.reset();
 
     // метки похожих объявлений удаляются
     var mapPins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
@@ -165,16 +165,16 @@
   };
 
   var submitFormHandler = function () {
-    noticeForm.submit();
+    cardsForm.submit();
   };
 
   var initializeFormListeners = function () {
-    var typeEl = noticeForm.querySelector('#type');
-    var timeInEl = noticeForm.querySelector('#timein');
-    var timeOutEl = noticeForm.querySelector('#timeout');
-    var roomNumberEl = noticeForm.querySelector('#room_number');
-    var capacityEl = noticeForm.querySelector('#capacity');
-    var resetButtonEl = noticeForm.querySelector('.form__reset');
+    var typeEl = cardsForm.querySelector('#type');
+    var timeInEl = cardsForm.querySelector('#timein');
+    var timeOutEl = cardsForm.querySelector('#timeout');
+    var roomNumberEl = cardsForm.querySelector('#room_number');
+    var capacityEl = cardsForm.querySelector('#capacity');
+    var resetButtonEl = cardsForm.querySelector('.form__reset');
 
     typeEl.addEventListener('change', changeTypeHandler);
     timeInEl.addEventListener('change', changeTimeInHandler);
@@ -182,14 +182,14 @@
     roomNumberEl.addEventListener('change', changeRoomNumberHandler);
     capacityEl.addEventListener('change', changeCapacityHandler);
     resetButtonEl.addEventListener('click', clickResetButtonHandler);
-    noticeForm.addEventListener('submit', submitFormHandler);
+    cardsForm.addEventListener('submit', submitFormHandler);
   };
 
   var switchFieldsetsActivation = function (activationFlag) {
-    var noticeFieldsets = noticeForm.querySelectorAll('.form__element');
+    var cardFieldsets = cardsForm.querySelectorAll('.form__element');
 
-    for (var i = 0, n = noticeFieldsets.length; i < n; i++) {
-      noticeFieldsets[i].disabled = !activationFlag;
+    for (var i = 0, n = cardFieldsets.length; i < n; i++) {
+      cardFieldsets[i].disabled = !activationFlag;
     }
   };
 
