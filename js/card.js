@@ -1,9 +1,17 @@
 'use strict';
 
 (function () {
+  var FEATURES = [
+    'wifi',
+    'dishwasher',
+    'parking',
+    'washer',
+    'elevator',
+    'conditioner'
+  ];
+
   var modifyFeatures = function (featureListElement, ad) {
-    var features = window.data.constants.features;
-    var missingFeatures = features.filter(function (feature) {
+    var missingFeatures = FEATURES.filter(function (feature) {
       return !ad.offer.features.includes(feature);
     });
 

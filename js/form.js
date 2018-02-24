@@ -1,6 +1,18 @@
 'use strict';
 
 (function () {
+  var TYPES = [
+    'flat',
+    'house',
+    'bungalo'
+  ];
+
+  var TIME_VALUES = [
+    '12:00',
+    '13:00',
+    '14:00'
+  ];
+
   var noticeForm = document.querySelector('.notice__form');
 
   var PRICE_MIN_BUNGALO = 0;
@@ -32,7 +44,7 @@
   var changePrices = function () {
     var typeEl = noticeForm.querySelector('#type');
     var priceEl = noticeForm.querySelector('#price');
-    var typesConstants = window.data.constants.types;
+    var typesConstants = TYPES;
 
     if (typeEl.value === typesConstants[0]) {
       priceEl.min = PRICE_MIN_FLAT;
@@ -51,7 +63,7 @@
 
   var changeTimeInHandler = function (evt) {
     var timeOutEl = noticeForm.querySelector('#timeout');
-    var timeValuesConstants = window.data.constants.timeValues;
+    var timeValuesConstants = TIME_VALUES;
 
     if (evt.target.value === timeValuesConstants[0]) {
       timeOutEl.value = timeValuesConstants[0];
@@ -64,7 +76,7 @@
 
   var changeTimeOutHandler = function (evt) {
     var timeInEl = noticeForm.querySelector('#timein');
-    var timeValuesConstants = window.data.constants.timeValues;
+    var timeValuesConstants = TIME_VALUES;
 
     if (evt.target.value === timeValuesConstants[0]) {
       timeInEl.value = timeValuesConstants[0];
