@@ -118,8 +118,8 @@
     var titlesTemp = TITLES.slice();
 
     for (var i = 0; i < numberOfAds; i++) {
-      var xValue = window.util.map.x.getRandomizedValue();
-      var yValue = window.util.map.y.getRandomizedValue();
+      var xValue = window.map.mapX.getRandomizedValue();
+      var yValue = window.map.mapY.getRandomizedValue();
 
       var ad = {
         author: {
@@ -139,8 +139,8 @@
           photos: getRandomPhotos(PHOTOS)
         },
         location: {
-          x: xValue + window.util.pin.width / 2,
-          y: yValue + window.util.pin.height
+          x: xValue + window.map.pin.width / 2,
+          y: yValue + window.map.pin.height
         }
       };
       ads.push(ad);

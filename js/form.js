@@ -12,13 +12,11 @@
 
   var fillAddressField = function () {
     var addressFormField = noticeForm.querySelector('#address');
-    var mapCoordinates = window.util.map;
-    var pinDimensions = window.util.pin;
 
-    var initialPinX = (mapCoordinates.x.max - mapCoordinates.x.min) / 2;
-    var initialPinY = (mapCoordinates.x.max - mapCoordinates.x.min) / 2;
-    var mainPinX = initialPinX - pinDimensions.width / 2;
-    var mainPinY = initialPinY - pinDimensions.height;
+    var initialPinX = (window.map.mapX.max - window.map.mapX.min) / 2;
+    var initialPinY = (window.map.mapY.max - window.map.mapY.min) / 2;
+    var mainPinX = initialPinX - window.map.pin.width / 2;
+    var mainPinY = initialPinY - window.map.pin.height;
 
     addressFormField.value = mainPinX + ', ' + mainPinY;
   };
