@@ -1,9 +1,17 @@
 'use strict';
 
 (function () {
+  var ENTER_KEYCODE = 13;
+
   var SUBMIT_SUCCESS_MESSAGE = 'Данные формы были успешно сохранены';
   var ALERT_SHOW_TIME = 3000;
   var ALERT_SHOW_STEPS = 50;
+
+  var isEnterEvent = function (evt, action, arg) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      action(arg);
+    }
+  };
 
   var getRandomNumber = function (value) {
     if (!value) {
@@ -72,6 +80,7 @@
   };
 
   window.util = {
+    isEnterEvent: isEnterEvent,
     getRandomNumber: getRandomNumber,
     getRandomIndex: getRandomIndex,
     getRandomNumberFromRange: getRandomNumberFromRange,

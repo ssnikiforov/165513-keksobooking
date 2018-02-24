@@ -10,6 +10,8 @@
     'conditioner'
   ];
 
+  var map = document.querySelector('.map');
+
   var modifyFeatures = function (featureListElement, ad) {
     var missingFeatures = FEATURES.filter(function (feature) {
       return !ad.offer.features.includes(feature);
@@ -81,8 +83,22 @@
     return cardElement;
   };
 
+  var addCloseCardEventListeners = function (card) {
+    var closeCardEl = card.querySelector('.popup__close');
+
+    closeCardEl.addEventListener('click', function () {
+      closeCard(card);
+    });
+    closeCardEl.addEventListener('keydown', function (evt) {
+      window.util.isEnterEvent(evt, closeCard, card);
+    });
+  };
+
+  var closeCard = function (card) {
+    map.removeChild(card);
+  };
+
   var renderCard = function (ad) {
-    var map = document.querySelector('.map');
     var templateEl = document.querySelector('template').content;
     var cardTemplate = templateEl.querySelector('.map__card');
     var cardElementTemplate = cardTemplate.cloneNode(true);
@@ -92,11 +108,14 @@
 
     var openedCards = map.querySelectorAll('.map__card');
     for (var i = 0, n = openedCards.length; i < n; i++) {
-      map.removeChild(openedCards[i]);
+      closeCard(openedCards[i]);
     }
 
     var mapFiltersContainer = map.querySelector('.map__filters-container');
     map.insertBefore(fragment, mapFiltersContainer);
+
+    var cardEl = map.querySelector('.map__card');
+    addCloseCardEventListeners(cardEl);
   };
 
   window.card = {
