@@ -305,8 +305,13 @@
   };
 
   var activatePage = function (activationFlag) {
-    map.classList.remove('map--faded');
-    noticeForm.classList.remove('notice__form--disabled');
+    if (!activationFlag) {
+      map.classList.add('map--faded');
+      noticeForm.classList.add('notice__form--disabled');
+    } else {
+      map.classList.remove('map--faded');
+      noticeForm.classList.remove('notice__form--disabled');
+    }
     switchFieldsetsActivation(activationFlag);
   };
 
@@ -457,6 +462,9 @@
 
     // значение поля адреса корректируется соответственно положению метки
     fillAddressField();
+
+    // отключить форму
+    activatePage(false);
   };
 
   var submitFormHandler = function () {
