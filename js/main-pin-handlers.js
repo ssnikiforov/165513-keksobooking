@@ -40,10 +40,10 @@
     };
 
     var calculatePinOffset = function (leftOffset, topOffset) {
-      var xCoordMax = window.util.map.x.max;
-      var xCoordMin = window.util.map.x.min;
-      var yCoordMax = window.util.map.y.max;
-      var yCoordMin = window.util.map.y.min;
+      var xCoordMax = window.map.mapX.max;
+      var xCoordMin = window.map.mapX.min;
+      var yCoordMax = window.map.mapY.max;
+      var yCoordMin = window.map.mapY.min;
 
       if (leftOffset > xCoordMax) {
         leftOffset = xCoordMax;
