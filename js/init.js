@@ -11,6 +11,7 @@
 
   var activatePage = function (activationFlag) {
     if (!activationFlag) {
+      isPageActivated = false;
       map.classList.add('map--faded');
       noticeForm.classList.add('notice__form--disabled');
     } else {
