@@ -169,6 +169,7 @@
 
     var formData = new FormData(cardsForm);
     window.backend.save(formData, window.util.successHandler, window.util.errorHandler);
+    cardsForm.reset();
   };
 
   var initializeFormListeners = function () {
