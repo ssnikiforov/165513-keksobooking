@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var GET_URL = 'https://js.dump.academy/keksobooking/data1';
+  var GET_URL = 'https://js.dump.academy/keksobooking/data';
   var POST_URL = 'https://js.dump.academy/keksobooking';
   var XHR_STATUS_OK = 200;
   var XHR_TIMEOUT = 10000;

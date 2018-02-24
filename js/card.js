@@ -92,10 +92,18 @@
     closeCardEl.addEventListener('keydown', function (evt) {
       window.util.isEnterEvent(evt, closeCard, card);
     });
+    window.addEventListener('keydown', pressEscButtonHandler);
   };
 
   var closeCard = function (card) {
     map.removeChild(card);
+    window.removeEventListener('keydown', pressEscButtonHandler)
+  };
+
+  var pressEscButtonHandler = function (evt) {
+    var cardEl = map.querySelector('.map__card');
+
+    window.util.isEscEvent(evt, closeCard, cardEl);
   };
 
   var renderCard = function (ad) {

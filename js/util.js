@@ -1,11 +1,18 @@
 'use strict';
 
 (function () {
+  var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
 
   var SUBMIT_SUCCESS_MESSAGE = 'Данные формы были успешно сохранены';
   var ALERT_SHOW_STEPS = 100;
   var ALERT_MIN_OPACITY = 0.7;
+
+  var isEscEvent = function (evt, action, arg) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      action(arg);
+    }
+  };
 
   var isEnterEvent = function (evt, action, arg) {
     if (evt.keyCode === ENTER_KEYCODE) {
@@ -86,6 +93,7 @@
   };
 
   window.util = {
+    isEscEvent: isEscEvent,
     isEnterEvent: isEnterEvent,
     getRandomNumber: getRandomNumber,
     getRandomIndex: getRandomIndex,
