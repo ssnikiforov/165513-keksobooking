@@ -4,8 +4,8 @@
   var ENTER_KEYCODE = 13;
 
   var SUBMIT_SUCCESS_MESSAGE = 'Данные формы были успешно сохранены';
-  var ALERT_SHOW_TIME = 3000;
-  var ALERT_SHOW_STEPS = 50;
+  var ALERT_SHOW_TIME = 10000;
+  var ALERT_SHOW_STEPS = 100;
 
   var isEnterEvent = function (evt, action, arg) {
     if (evt.keyCode === ENTER_KEYCODE) {
@@ -34,7 +34,7 @@
       'z-index: 100;',
       'margin: 0 auto;',
       'padding: 30px;',
-      'position: absolute;',
+      'position: fixed;',
       'left: 0;',
       'right: 0;',
       'width: 100%;',

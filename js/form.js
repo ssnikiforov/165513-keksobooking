@@ -164,8 +164,11 @@
     window.init.activatePage(false);
   };
 
-  var submitFormHandler = function () {
-    cardsForm.submit();
+  var submitFormHandler = function (evt) {
+    evt.preventDefault();
+
+    var formData = new FormData(cardsForm);
+    window.backend.save(formData, window.util.successHandler, window.util.errorHandler);
   };
 
   var initializeFormListeners = function () {
