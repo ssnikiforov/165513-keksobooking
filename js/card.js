@@ -90,6 +90,11 @@
 
     fragment.appendChild(modifyCard(cardElementTemplate, ad));
 
+    var openedCards = map.querySelectorAll('.map__card');
+    for (var i = 0, n = openedCards.length; i < n; i++) {
+      map.removeChild(openedCards[i]);
+    }
+
     var mapFiltersContainer = map.querySelector('.map__filters-container');
     map.insertBefore(fragment, mapFiltersContainer);
   };
