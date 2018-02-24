@@ -37,5 +37,5 @@
 
   window.init = {
     activatePage: activatePage
-  }
+  };
 })();
