@@ -60,11 +60,11 @@
       return {left: leftOffset, top: topOffset};
     };
 
-    var painPinMouseUpHandler = function (upEvt) {
+    var mainPinMouseUpHandler = function (upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', mainPinMouseMoveHandler);
-      document.removeEventListener('mouseup', painPinMouseUpHandler);
+      document.removeEventListener('mouseup', mainPinMouseUpHandler);
 
       if (dragged) {
         var clickPreventDefaultHandler = function (clickEvt) {
@@ -76,7 +76,7 @@
     };
 
     document.addEventListener('mousemove', mainPinMouseMoveHandler);
-    document.addEventListener('mouseup', painPinMouseUpHandler);
+    document.addEventListener('mouseup', mainPinMouseUpHandler);
   };
   window.mainPinHandlers = {
     mouseDownMainPinHandler: mouseDownMainPinHandler
