@@ -4,8 +4,8 @@
   var ENTER_KEYCODE = 13;
 
   var SUBMIT_SUCCESS_MESSAGE = 'Данные формы были успешно сохранены';
-  var ALERT_SHOW_TIME = 10000;
   var ALERT_SHOW_STEPS = 100;
+  var ALERT_MIN_OPACITY = 0.7;
 
   var isEnterEvent = function (evt, action, arg) {
     if (evt.keyCode === ENTER_KEYCODE) {
@@ -42,7 +42,13 @@
       'font-size: 24px;',
       'opacity: 1;'
     ];
-    stylesArr.push(type === 'success' ? 'background-color: green;' : 'background-color: red;');
+    var successStyles = [
+      'background-color: #dff0d8;'
+    ];
+    var errorStyles = [
+      'background-color: #f2dede;'
+    ];
+    stylesArr.push(type === 'success' ? successStyles : errorStyles);
 
     var node = document.createElement('div');
     node.style = stylesArr.join(' ');
@@ -57,12 +63,12 @@
     var currentOpacity = alert.style.opacity;
     var timer = setInterval(function () {
       currentOpacity -= 1 / ALERT_SHOW_STEPS;
-      if (currentOpacity <= 0) {
+      if (currentOpacity <= ALERT_MIN_OPACITY) {
         clearInterval(timer);
         document.body.removeChild(alert);
       }
       alert.style.opacity = currentOpacity;
-    }, ALERT_SHOW_TIME / ALERT_SHOW_STEPS);
+    }, ALERT_SHOW_STEPS);
   };
 
   var successHandler = function () {
