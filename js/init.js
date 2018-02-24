@@ -30,8 +30,6 @@
     }
   };
 
-  window.form.runForm();
-
   // disable page by default
   var isPageActivated = false;
   window.form.switchFieldsetsActivation(isPageActivated);
