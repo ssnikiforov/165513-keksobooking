@@ -101,7 +101,7 @@
 
   var closeCard = function (card) {
     map.removeChild(card);
-    window.removeEventListener('keydown', pressEscButtonHandler)
+    window.removeEventListener('keydown', pressEscButtonHandler);
   };
 
   var pressEscButtonHandler = function (evt) {
