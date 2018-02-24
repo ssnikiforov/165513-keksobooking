@@ -10,8 +10,13 @@
   var ads = window.data.getAds(NUMBER_OF_ADS);
 
   var activatePage = function (activationFlag) {
-    map.classList.remove('map--faded');
-    noticeForm.classList.remove('notice__form--disabled');
+    if (!activationFlag) {
+      map.classList.add('map--faded');
+      noticeForm.classList.add('notice__form--disabled');
+    } else {
+      map.classList.remove('map--faded');
+      noticeForm.classList.remove('notice__form--disabled');
+    }
     window.form.switchFieldsetsActivation(activationFlag);
   };
 
@@ -28,4 +33,8 @@
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
 
   window.form.runForm();
+
+  window.init = {
+    activatePage: activatePage
+  }
 })();
