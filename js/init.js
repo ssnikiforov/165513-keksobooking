@@ -10,8 +10,13 @@
   var ads = window.data.getAds(NUMBER_OF_ADS);
 
   var activatePage = function (activationFlag) {
-    map.classList.remove('map--faded');
-    noticeForm.classList.remove('notice__form--disabled');
+    if (!activationFlag) {
+      map.classList.add('map--faded');
+      noticeForm.classList.add('notice__form--disabled');
+    } else {
+      map.classList.remove('map--faded');
+      noticeForm.classList.remove('notice__form--disabled');
+    }
     window.form.switchFieldsetsActivation(activationFlag);
   };
 
@@ -30,6 +35,13 @@
   var isPageActivated = false;
   window.form.switchFieldsetsActivation(isPageActivated);
 
+  mainPin.addEventListener('mouseup', mainPinMoveHandler);
   mainPin.addEventListener('mousedown', mainPinMoveHandler);
   mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDownMainPinHandler);
+
+  window.form.runForm();
+
+  window.init = {
+    activatePage: activatePage
+  }
 })();

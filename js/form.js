@@ -148,6 +148,9 @@
 
     // значение поля адреса корректируется соответственно положению метки
     fillAddressField();
+
+    // отключить форму
+    window.init.activatePage(false);
   };
 
   var submitFormHandler = function () {
