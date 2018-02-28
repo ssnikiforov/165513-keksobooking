@@ -12,11 +12,29 @@
       y: evt.clientY
     };
 
-    var dragged = false;
+    var calculatePinOffset = function (leftOffset, topOffset) {
+      var xCoordMax = window.map.mapX.max;
+      var xCoordMin = window.map.mapX.min;
+      var yCoordMax = window.map.mapY.max;
+      var yCoordMin = window.map.mapY.min;
+
+      if (leftOffset > xCoordMax) {
+        leftOffset = xCoordMax;
+      } else if (leftOffset < xCoordMin) {
+        leftOffset = xCoordMin;
+      }
+
+      if (topOffset > yCoordMax) {
+        topOffset = yCoordMax;
+      } else if (topOffset < yCoordMin) {
+        topOffset = yCoordMin;
+      }
+
+      return {left: leftOffset, top: topOffset};
+    };
 
     var mainPinMouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
-      dragged = true;
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -39,40 +57,11 @@
       window.form.fillAddressField(pinOffset.left, pinOffset.top);
     };
 
-    var calculatePinOffset = function (leftOffset, topOffset) {
-      var xCoordMax = window.map.mapX.max;
-      var xCoordMin = window.map.mapX.min;
-      var yCoordMax = window.map.mapY.max;
-      var yCoordMin = window.map.mapY.min;
-
-      if (leftOffset > xCoordMax) {
-        leftOffset = xCoordMax;
-      } else if (leftOffset < xCoordMin) {
-        leftOffset = xCoordMin;
-      }
-
-      if (topOffset > yCoordMax) {
-        topOffset = yCoordMax;
-      } else if (topOffset < yCoordMin) {
-        topOffset = yCoordMin;
-      }
-
-      return {left: leftOffset, top: topOffset};
-    };
-
     var mainPinMouseUpHandler = function (upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', mainPinMouseMoveHandler);
       document.removeEventListener('mouseup', mainPinMouseUpHandler);
-
-      if (dragged) {
-        var clickPreventDefaultHandler = function (clickEvt) {
-          clickEvt.preventDefault();
-          mainPin.removeEventListener('click', clickPreventDefaultHandler);
-        };
-        mainPin.addEventListener('click', clickPreventDefaultHandler);
-      }
     };
 
     document.addEventListener('mousemove', mainPinMouseMoveHandler);

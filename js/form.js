@@ -15,8 +15,8 @@
     var initialPinX = (window.map.mapX.max - window.map.mapX.min) / 2;
     var initialPinY = (window.map.mapY.max - window.map.mapY.min) / 2;
 
-    xCoordinate = typeof xCoordinate !== 'undefined' ? xCoordinate : initialPinX;
-    yCoordinate = typeof yCoordinate !== 'undefined' ? yCoordinate : initialPinY;
+    xCoordinate = xCoordinate || initialPinX;
+    yCoordinate = yCoordinate || initialPinY;
 
     var mainPinX = xCoordinate;
     var mainPinY = yCoordinate - window.map.pin.height;
