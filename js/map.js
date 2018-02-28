@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var X_COORD_MIN = 0;
-  var X_COORD_MAX = 1200;
+  var X_COORD_MIN = 300;
+  var X_COORD_MAX = 900;
   var Y_COORD_MIN = 150;
   var Y_COORD_MAX = 500;
 
