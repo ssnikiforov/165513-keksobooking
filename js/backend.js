@@ -30,7 +30,7 @@
     xhr.send();
   };
 
-  var save = function (data, loadHandler, errorHandler) {
+  var upload = function (data, loadHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -51,6 +51,6 @@
 
   window.backend = {
     load: load,
-    save: save
+    upload: upload
   };
 })();

@@ -164,7 +164,7 @@
     evt.preventDefault();
 
     var formData = new FormData(cardsForm);
-    window.backend.save(formData, window.util.successHandler, window.util.errorHandler);
+    window.backend.upload(formData, window.util.successHandler, window.util.errorHandler);
     cardsForm.reset();
   };
 
