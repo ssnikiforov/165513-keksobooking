@@ -13,6 +13,7 @@
     '14:00'
   ];
 
+  var map = document.querySelector('.map');
   var cardsForm = document.querySelector('.notice__form');
 
   var PRICE_MIN_BUNGALO = 0;
@@ -24,8 +25,8 @@
 
   var fillAddressField = function (xCoordinate, yCoordinate) {
     var addressFormField = cardsForm.querySelector('#address');
-    var initialPinX = (window.map.mapX.max - window.map.mapX.min) / 2;
-    var initialPinY = (window.map.mapY.max - window.map.mapY.min) / 2 + 200; // magic number, I don't understand
+    var initialPinX = map.offsetWidth / 2;
+    var initialPinY = map.offsetHeight / 2;
 
     var mainPinX = (xCoordinate || initialPinX);
     var mainPinY = (yCoordinate || initialPinY);
