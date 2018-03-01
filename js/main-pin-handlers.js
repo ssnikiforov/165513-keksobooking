@@ -12,21 +12,21 @@
       y: evt.clientY
     };
 
-    var calculateMainPinCoordinates = function (evt) {
+    var calculateMainPinCoordinates = function (someEvt) {
       var shift = {
-        x: startCoords.x - evt.clientX,
-        y: startCoords.y - evt.clientY
+        x: startCoords.x - someEvt.clientX,
+        y: startCoords.y - someEvt.clientY
       };
 
       startCoords = {
-        x: evt.clientX,
-        y: evt.clientY
+        x: someEvt.clientX,
+        y: someEvt.clientY
       };
 
       var leftOffset = mainPin.offsetLeft - shift.x;
       var topOffset = mainPin.offsetTop - shift.y;
 
-      return {left: leftOffset, top: topOffset}
+      return {left: leftOffset, top: topOffset};
     };
 
     var calculatePinOffset = function (leftOffset, topOffset) {
