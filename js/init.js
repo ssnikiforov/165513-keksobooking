@@ -25,7 +25,7 @@
     if (!isPageActivated) {
       isPageActivated = true;
       activatePage(isPageActivated);
-      window.map.renderMapPins(map, template, ads);
+      window.map.renderMapPins(template, ads);
       window.form.fillAddressField();
     }
   };
