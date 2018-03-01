@@ -12,16 +12,33 @@
       y: evt.clientY
     };
 
+    var calculateMainPinCoordinates = function (evt) {
+      var shift = {
+        x: startCoords.x - evt.clientX,
+        y: startCoords.y - evt.clientY
+      };
+
+      startCoords = {
+        x: evt.clientX,
+        y: evt.clientY
+      };
+
+      var leftOffset = mainPin.offsetLeft - shift.x;
+      var topOffset = mainPin.offsetTop - shift.y;
+
+      return {left: leftOffset, top: topOffset}
+    };
+
     var calculatePinOffset = function (leftOffset, topOffset) {
       var xCoordMax = window.map.mapX.max;
       var xCoordMin = window.map.mapX.min;
       var yCoordMax = window.map.mapY.max;
       var yCoordMin = window.map.mapY.min;
 
-      if (leftOffset > xCoordMax) {
-        leftOffset = xCoordMax;
-      } else if (leftOffset < xCoordMin) {
-        leftOffset = xCoordMin;
+      if (leftOffset > xCoordMax - window.map.pin.width / 2) {
+        leftOffset = xCoordMax - window.map.pin.width / 2;
+      } else if (leftOffset < xCoordMin + window.map.pin.width / 2) {
+        leftOffset = xCoordMin + window.map.pin.width / 2;
       }
 
       if (topOffset > yCoordMax) {
@@ -36,20 +53,8 @@
     var mainPinMouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
 
-      var shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
-      };
-
-      startCoords = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
-
-      var leftOffset = mainPin.offsetLeft - shift.x;
-      var topOffset = mainPin.offsetTop - shift.y;
-
-      var pinOffset = calculatePinOffset(leftOffset, topOffset);
+      var offset = calculateMainPinCoordinates(moveEvt);
+      var pinOffset = calculatePinOffset(offset.left, offset.top);
 
       mainPin.style.left = pinOffset.left + 'px';
       mainPin.style.top = pinOffset.top + 'px';
@@ -59,6 +64,14 @@
 
     var mainPinMouseUpHandler = function (upEvt) {
       upEvt.preventDefault();
+
+      var offset = calculateMainPinCoordinates(upEvt);
+      var pinOffset = calculatePinOffset(offset.left, offset.top);
+
+      mainPin.style.left = pinOffset.left + 'px';
+      mainPin.style.top = pinOffset.top + 'px';
+
+      window.form.fillAddressField(pinOffset.left, pinOffset.top);
 
       document.removeEventListener('mousemove', mainPinMouseMoveHandler);
       document.removeEventListener('mouseup', mainPinMouseUpHandler);
