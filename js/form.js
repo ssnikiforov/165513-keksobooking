@@ -11,9 +11,10 @@
   var NOT_FOR_GUESTS_OPTION_VALUE = 100;
 
   var fillAddressField = function (xCoordinate, yCoordinate) {
+    var map = document.querySelector('.map');
     var addressFormField = noticeForm.querySelector('#address');
-    var initialPinX = (window.map.mapX.max - window.map.mapX.min) / 2;
-    var initialPinY = (window.map.mapY.max - window.map.mapY.min) / 2 + 200; // magic number, I don't understand
+    var initialPinX = map.offsetWidth / 2;
+    var initialPinY = map.offsetHeight / 2;
 
     var mainPinX = (xCoordinate || initialPinX);
     var mainPinY = (yCoordinate || initialPinY);
