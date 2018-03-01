@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var map = document.querySelector('.map');
   var noticeForm = document.querySelector('.notice__form');
 
   var PRICE_MIN_BUNGALO = 0;
@@ -11,7 +12,6 @@
   var NOT_FOR_GUESTS_OPTION_VALUE = 100;
 
   var fillAddressField = function (xCoordinate, yCoordinate) {
-    var map = document.querySelector('.map');
     var addressFormField = noticeForm.querySelector('#address');
     var initialPinX = map.offsetWidth / 2;
     var initialPinY = map.offsetHeight / 2;
