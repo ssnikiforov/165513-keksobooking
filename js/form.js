@@ -25,14 +25,10 @@
   var fillAddressField = function (xCoordinate, yCoordinate) {
     var addressFormField = cardsForm.querySelector('#address');
     var initialPinX = (window.map.mapX.max - window.map.mapX.min) / 2;
-    var initialPinY = (window.map.mapY.max - window.map.mapY.min) / 2;
+    var initialPinY = (window.map.mapY.max - window.map.mapY.min) / 2 + 200; // magic number, I don't understand
 
-    xCoordinate = typeof xCoordinate !== 'undefined' ? xCoordinate : initialPinX;
-    yCoordinate = typeof yCoordinate !== 'undefined' ? yCoordinate : initialPinY;
-
-    var mainPinX = xCoordinate;
-    var mainPinY = yCoordinate - window.map.pin.height;
-
+    var mainPinX = (xCoordinate || initialPinX);
+    var mainPinY = (yCoordinate || initialPinY);
     addressFormField.value = mainPinX + ', ' + mainPinY;
   };
 

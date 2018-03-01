@@ -19,7 +19,7 @@
   };
 
   var successHandler = function (ads) {
-    window.map.renderMapPins(map, template, ads);
+    window.map.renderMapPins(template, ads);
   };
 
   var mainPinMoveHandler = function () {

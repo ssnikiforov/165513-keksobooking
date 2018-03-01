@@ -1,15 +1,18 @@
 'use strict';
 
 (function () {
-  var X_COORD_MIN = 0;
-  var X_COORD_MAX = 1200;
-  var Y_COORD_MIN = 150;
-  var Y_COORD_MAX = 500;
-
   var MAP_PIN_WIDTH = 62;
   var MAP_PIN_HEIGHT = 84;
 
-  var renderMapPins = function (map, template, ads) {
+  var map = document.querySelector('.map');
+  var mapPins = map.querySelector('.map__pins');
+  var X_COORD_MIN = 0;
+  var X_COORD_MAX = mapPins.offsetWidth;
+
+  var Y_COORD_MIN = 150;
+  var Y_COORD_MAX = 500;
+
+  var renderMapPins = function (template, ads) {
     var mapPinsTemplate = template.querySelector('.map__pin');
     var fragment = document.createDocumentFragment();
 
