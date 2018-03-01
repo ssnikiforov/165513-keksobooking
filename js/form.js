@@ -132,7 +132,6 @@
   var resetPage = function (evt) {
     evt.preventDefault();
 
-    var map = document.querySelector('.map');
     var mainPin = map.querySelector('.map__pin--main');
 
     // все заполненные поля стираются
@@ -161,12 +160,19 @@
     window.init.activatePage(false);
   };
 
+  var successHandler = function () {
+    var alertNode = window.util.alertMessage.getAlertMessageNode('success');
+    alertNode.textContent = window.util.alertMessage.getSuccessSubmitMessage;
+    document.body.insertAdjacentElement('afterbegin', alertNode);
+    window.util.alertMessage.hideAlert(alertNode);
+    cardsForm.reset();
+  };
+
   var submitFormHandler = function (evt) {
     evt.preventDefault();
 
     var formData = new FormData(cardsForm);
-    window.backend.upload(formData, window.util.successHandler, window.util.errorHandler);
-    cardsForm.reset();
+    window.backend.upload(formData, successHandler, window.util.errorHandler);
   };
 
   var initializeFormListeners = function () {

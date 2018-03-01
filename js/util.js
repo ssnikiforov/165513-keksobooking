@@ -69,7 +69,6 @@
 
   var errorHandler = function (errorMessage) {
     var alertNode = getAlertMessageNode('error');
-    console.log(alertNode);
     alertNode.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', alertNode);
     hideAlert(alertNode);
@@ -82,6 +81,11 @@
     getRandomIndex: getRandomIndex,
     getRandomNumberFromRange: getRandomNumberFromRange,
     successHandler: successHandler,
-    errorHandler: errorHandler
+    errorHandler: errorHandler,
+    alertMessage: {
+      getSuccessSubmitMessage: SUBMIT_SUCCESS_MESSAGE,
+      getAlertMessageNode: getAlertMessageNode,
+      hideAlert: hideAlert
+    }
   };
 })();
