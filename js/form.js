@@ -125,12 +125,11 @@
     changeRoomNumber();
   };
 
-  var clickResetButtonHandler = function (evt) {
-    resetPage(evt);
+  var clickResetButtonHandler = function () {
+    resetPage();
   };
 
-  var resetPage = function (evt) {
-    evt.preventDefault();
+  var resetPage = function () {
 
     var mainPin = map.querySelector('.map__pin--main');
 
@@ -165,7 +164,7 @@
     alertNode.textContent = window.util.alertMessage.getSuccessSubmitMessage;
     document.body.insertAdjacentElement('afterbegin', alertNode);
     window.util.alertMessage.hideAlert(alertNode);
-    cardsForm.reset();
+    resetPage();
   };
 
   var submitFormHandler = function (evt) {
