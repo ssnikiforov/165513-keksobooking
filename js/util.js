@@ -37,30 +37,12 @@
   };
 
   var getAlertMessageNode = function (type) {
-    var stylesArr = [
-      'z-index: 100;',
-      'margin: 0 auto;',
-      'padding: 30px;',
-      'position: fixed;',
-      'left: 0;',
-      'right: 0;',
-      'width: 100%;',
-      'text-align: center;',
-      'font-size: 24px;',
-      'opacity: 1;'
-    ];
-    var successStyles = [
-      'background-color: #dff0d8;'
-    ];
-    var errorStyles = [
-      'background-color: #f2dede;'
-    ];
-    stylesArr.push(type === 'success' ? successStyles : errorStyles);
+    var template = document.querySelector('template').content;
+    var alertWrapperEl = template.querySelector('.alert-wrapper').cloneNode(true);
 
-    var node = document.createElement('div');
-    node.style = stylesArr.join(' ');
+    alertWrapperEl.style.backgroundColor = type === 'success' ? '#dff0d8' : '#f2dede';
 
-    return node;
+    return alertWrapperEl;
   };
 
   var hideAlert = function (alert) {
@@ -87,6 +69,7 @@
 
   var errorHandler = function (errorMessage) {
     var alertNode = getAlertMessageNode('error');
+    console.log(alertNode);
     alertNode.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', alertNode);
     hideAlert(alertNode);
