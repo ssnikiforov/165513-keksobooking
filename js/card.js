@@ -44,7 +44,7 @@
   var modifyTypes = function (typeElement, ad) {
     var adTypesReference = {
       flat: 'Квартира',
-      bungalo: 'Бунгало',
+      bungalo: 'Сарай',
       house: 'Дом'
     };
 
@@ -104,6 +104,13 @@
     window.removeEventListener('keydown', pressEscButtonHandler);
   };
 
+  var closeAllOpenedCards = function () {
+    var openedCards = map.querySelectorAll('.map__card');
+    for (var i = 0, n = openedCards.length; i < n; i++) {
+      closeCard(openedCards[i]);
+    }
+  };
+
   var pressEscButtonHandler = function (evt) {
     var cardEl = map.querySelector('.map__card');
 
@@ -118,10 +125,7 @@
 
     fragment.appendChild(modifyCard(cardElementTemplate, ad));
 
-    var openedCards = map.querySelectorAll('.map__card');
-    for (var i = 0, n = openedCards.length; i < n; i++) {
-      closeCard(openedCards[i]);
-    }
+    closeAllOpenedCards();
 
     var mapFiltersContainer = map.querySelector('.map__filters-container');
     map.insertBefore(fragment, mapFiltersContainer);
@@ -131,6 +135,7 @@
   };
 
   window.card = {
-    renderCard: renderCard
+    renderCard: renderCard,
+    closeAllOpenedCards: closeAllOpenedCards
   };
 })();

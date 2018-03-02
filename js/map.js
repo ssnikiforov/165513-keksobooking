@@ -12,19 +12,32 @@
   var Y_COORD_MIN = 150;
   var Y_COORD_MAX = 500;
 
-  var renderMapPins = function (template, ads) {
+  var ads;
+  var template;
+
+  var renderMapPins = function (sourceTemplate, sourceAds) {
+    ads = sourceAds;
+    template = sourceTemplate;
+
     var mapPinsTemplate = template.querySelector('.map__pin');
+
+    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, ads, ads.length);
+
+    map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
+  };
+
+  var getMapPinsFilledFragment = function (pinsTemplate, adsTemp, length) {
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0, n = ads.length; i < n; i++) {
-      var pinElementTemplate = mapPinsTemplate.cloneNode(true);
+    for (var i = 0, n = length; i < n; i++) {
+      var pinElementCloned = pinsTemplate.cloneNode(true);
 
-      var renderedPinElement = window.pin.renderMapPin(pinElementTemplate, ads[i]);
-      addClickListener(renderedPinElement, ads[i]);
+      var renderedPinElement = window.pin.renderMapPin(pinElementCloned, adsTemp[i]);
+      addClickListener(renderedPinElement, adsTemp[i]);
       fragment.appendChild(renderedPinElement);
     }
 
-    map.querySelector('.map__pins').appendChild(fragment);
+    return fragment;
   };
 
   var addClickListener = function (pinElement, ad) {
@@ -32,6 +45,98 @@
       window.card.renderCard(ad);
     });
   };
+
+  var removeMapPins = function () {
+    var mapPins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var i = 0, n = mapPins.length; i < n; i++) {
+      map.querySelector('.map__pins').removeChild(mapPins[i]);
+    }
+  };
+
+  var filterValues = {
+    'type': '',
+    'price': '',
+    'rooms': '',
+    'guest': '',
+    'featuresList': []
+  };
+
+  var PRICE_VALUES = {
+    LOW_MIN: 0,
+    LOW_MAX: 10000,
+    MIDDLE_MAX: 50000,
+    low: 'low',
+    middle: 'middle',
+    high: 'high'
+  };
+
+  var checkPrice = function (val) {
+    if (val >= PRICE_VALUES.LOW_MIN && val < PRICE_VALUES.LOW_MAX) {
+      return PRICE_VALUES.low;
+    } else if (val >= PRICE_VALUES.LOW_MAX && val < PRICE_VALUES.MIDDLE_MAX) {
+      return PRICE_VALUES.middle;
+    } else if (val >= PRICE_VALUES.MIDDLE_MAX) {
+      return PRICE_VALUES.high;
+    }
+    return true;
+  };
+
+  var getRank = function (elem) {
+    var rank = 0;
+    if (elem.offer.type === filterValues.type) {
+      rank += 1;
+    }
+    if (checkPrice(elem.offer.price) === filterValues.price) {
+      rank += 1;
+    }
+    if (elem.offer.rooms === +filterValues.rooms) {
+      rank += 1;
+    }
+    if (elem.offer.guests === +filterValues.guests) {
+      rank += 1;
+    }
+    for (var i = 0; i < filterValues.featuresList.length; i++) {
+      if (elem.offer.features.some(function (it) {
+          return it === filterValues.featuresList[i];
+        })) {
+        rank += 1;
+      }
+    }
+    return rank;
+  };
+
+  var updateMapPins = function () {
+    removeMapPins();
+    window.card.closeAllOpenedCards();
+
+    var adsCopy = ads.slice();
+    var mapPinsTemplate = template.querySelector('.map__pin');
+
+    var adSorted = adsCopy.sort(function (left, right) {
+          return getRank(right) - getRank(left);
+        });
+
+    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adSorted, 4);
+    map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
+  };
+
+  var addSelectOnChange = function (arg) {
+    var node = document.querySelector('#housing-' + arg);
+    node.addEventListener('change', function () {
+      if (node.value === 'any') {
+        filterValues[arg + ''] = true;
+      } else {
+        filterValues[arg + ''] = node.value;
+      }
+
+      window.util.debounce(updateMapPins);
+    });
+  };
+
+  addSelectOnChange('type');
+  addSelectOnChange('price');
+  addSelectOnChange('rooms');
+  addSelectOnChange('guests');
 
   window.map = {
     mapX: {
@@ -52,6 +157,7 @@
       width: MAP_PIN_WIDTH,
       height: MAP_PIN_HEIGHT
     },
-    renderMapPins: renderMapPins
+    renderMapPins: renderMapPins,
+    removeMapPins: removeMapPins
   };
 })();

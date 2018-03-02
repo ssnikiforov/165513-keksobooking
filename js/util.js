@@ -69,6 +69,16 @@
     hideAlert(alertNode);
   };
 
+  var DEBOUNCE_TIMEOUT = 500;
+  var lastTimeout;
+
+  var debounce = function (func) {
+    if (lastTimeout) {
+      clearTimeout(lastTimeout);
+    }
+    lastTimeout = setTimeout(func, DEBOUNCE_TIMEOUT);
+  };
+
   window.util = {
     isEscEvent: isEscEvent,
     isEnterEvent: isEnterEvent,
@@ -81,6 +91,7 @@
       getSuccessSubmitMessage: SUBMIT_SUCCESS_MESSAGE,
       getAlertMessageNode: getAlertMessageNode,
       hideAlert: hideAlert
-    }
+    },
+    debounce: debounce
   };
 })();

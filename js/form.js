@@ -137,14 +137,11 @@
     cardsForm.reset();
 
     // метки похожих объявлений удаляются
-    var mapPins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var i = 0, n = mapPins.length; i < n; i++) {
-      map.querySelector('.map__pins').removeChild(mapPins[i]);
-    }
+    window.map.removeMapPins();
 
     // карточка активного объявления удаляется
     var cards = map.querySelectorAll('.map__card');
-    for (i = 0, n = cards.length; i < n; i++) {
+    for (var i = 0, n = cards.length; i < n; i++) {
       map.removeChild(cards[i]);
     }
 

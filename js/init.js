@@ -19,7 +19,8 @@
   };
 
   var successHandler = function (ads) {
-    window.map.renderMapPins(template, ads);
+    var adsClone = ads.slice();
+    window.map.renderMapPins(template, adsClone);
   };
 
   var mainPinMoveHandler = function () {
