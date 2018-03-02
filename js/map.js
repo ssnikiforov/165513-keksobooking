@@ -21,7 +21,7 @@
 
     var mapPinsTemplate = template.querySelector('.map__pin');
 
-    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, ads, ads.length);
+    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, ads, 4);
 
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
