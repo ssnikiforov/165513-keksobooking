@@ -12,6 +12,8 @@
   var Y_COORD_MIN = 150;
   var Y_COORD_MAX = 500;
 
+  var MAX_NUMBER_OF_PINS_ON_MAP = 4;
+
   var ads;
   var template;
 
@@ -21,7 +23,7 @@
 
     var mapPinsTemplate = template.querySelector('.map__pin');
 
-    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, ads, 4);
+    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, ads, MAX_NUMBER_OF_PINS_ON_MAP);
 
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
@@ -116,7 +118,7 @@
           return getRank(right) - getRank(left);
         });
 
-    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adSorted, 4);
+    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adSorted, MAX_NUMBER_OF_PINS_ON_MAP);
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
