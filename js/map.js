@@ -14,6 +14,15 @@
 
   var MAX_NUMBER_OF_PINS_ON_MAP = 4;
 
+  var PRICE_VALUES = {
+    LOW_MIN: 0,
+    LOW_MAX: 10000,
+    MIDDLE_MAX: 50000,
+    low: 'low',
+    middle: 'middle',
+    high: 'high'
+  };
+
   var ads;
   var template;
 
@@ -63,15 +72,6 @@
     'featuresList': []
   };
 
-  var PRICE_VALUES = {
-    LOW_MIN: 0,
-    LOW_MAX: 10000,
-    MIDDLE_MAX: 50000,
-    low: 'low',
-    middle: 'middle',
-    high: 'high'
-  };
-
   var checkPrice = function (val) {
     if (val >= PRICE_VALUES.LOW_MIN && val < PRICE_VALUES.LOW_MAX) {
       return PRICE_VALUES.low;
@@ -83,22 +83,22 @@
     return true;
   };
 
-  var getRank = function (elem) {
+  var getRank = function (criteria) {
     var rank = 0;
-    if (elem.offer.type === filterValues.type) {
+    if (criteria.offer.type === filterValues.type) {
+      rank += 2;
+    }
+    if (checkPrice(criteria.offer.price) === filterValues.price) {
+      rank += 2;
+    }
+    if (criteria.offer.rooms === +filterValues.rooms) {
       rank += 1;
     }
-    if (checkPrice(elem.offer.price) === filterValues.price) {
-      rank += 1;
-    }
-    if (elem.offer.rooms === +filterValues.rooms) {
-      rank += 1;
-    }
-    if (elem.offer.guests === +filterValues.guests) {
+    if (criteria.offer.guests === +filterValues.guests) {
       rank += 1;
     }
     for (var i = 0; i < filterValues.featuresList.length; i++) {
-      var condition = elem.offer.features.some(function (it) {
+      var condition = criteria.offer.features.some(function (it) {
         return it === filterValues.featuresList[i];
       });
       if (condition) {
