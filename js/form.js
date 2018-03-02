@@ -92,17 +92,17 @@
     var notForGuests = capacityEl.querySelector('option[value="0"]');
     notForGuests.disabled = true;
 
-    for (var i = 0, n = guests.length; i < n; i++) {
+    [].forEach.call(guests, function (guest) {
       if (+roomNumberEl.value === NOT_FOR_GUESTS_OPTION_VALUE) {
-        guests[i].disabled = true;
+        guest.disabled = true;
         notForGuests.disabled = false;
-      } else if (+guests[i].value !== 0 && +roomNumberEl.value < +guests[i].value) {
-        guests[i].disabled = true;
+      } else if (+guest.value !== 0 && +roomNumberEl.value < +guest.value) {
+        guest.disabled = true;
       } else {
-        guests[i].disabled = false;
+        guest.disabled = false;
         notForGuests.disabled = true;
       }
-    }
+    });
 
     changeCapacityHandler();
   };
@@ -141,9 +141,9 @@
 
     // карточка активного объявления удаляется
     var cards = map.querySelectorAll('.map__card');
-    for (var i = 0, n = cards.length; i < n; i++) {
-      map.removeChild(cards[i]);
-    }
+    [].forEach.call(cards, function (card) {
+      map.removeChild(card);
+    });
 
     // метка адреса возвращается в исходное положение
     mainPin.style.removeProperty('top');
@@ -191,9 +191,9 @@
   var switchFieldsetsActivation = function (activationFlag) {
     var cardFieldsets = cardsForm.querySelectorAll('.form__element');
 
-    for (var i = 0, n = cardFieldsets.length; i < n; i++) {
-      cardFieldsets[i].disabled = !activationFlag;
-    }
+    [].forEach.call(cardFieldsets, function (cardFieldset) {
+      cardFieldset.disabled = !activationFlag;
+    });
 
     var avatarFieldset = cardsForm.querySelector('.notice__header');
     avatarFieldset.disabled = !activationFlag;

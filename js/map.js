@@ -60,9 +60,9 @@
 
   var removeMapPins = function () {
     var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var i = 0, n = pins.length; i < n; i++) {
-      map.querySelector('.map__pins').removeChild(pins[i]);
-    }
+    [].forEach.call(pins, function (pin) {
+      map.querySelector('.map__pins').removeChild(pin);
+    });
   };
 
   var filterValues = {

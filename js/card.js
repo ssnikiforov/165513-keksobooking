@@ -106,9 +106,9 @@
 
   var closeAllOpenedCards = function () {
     var openedCards = map.querySelectorAll('.map__card');
-    for (var i = 0, n = openedCards.length; i < n; i++) {
-      closeCard(openedCards[i]);
-    }
+    [].forEach.call(openedCards, function (openedCard) {
+      closeCard(openedCard);
+    });
   };
 
   var pressEscButtonHandler = function (evt) {
