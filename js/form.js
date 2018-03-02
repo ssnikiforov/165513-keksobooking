@@ -194,6 +194,9 @@
     for (var i = 0, n = cardFieldsets.length; i < n; i++) {
       cardFieldsets[i].disabled = !activationFlag;
     }
+
+    var avatarFieldset = cardsForm.querySelector('.notice__header');
+    avatarFieldset.disabled = !activationFlag;
   };
 
   var runForm = function () {
