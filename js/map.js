@@ -29,7 +29,7 @@
 
   var addClickListener = function (pinElement, ad) {
     pinElement.addEventListener('click', function () {
-      window.card.renderNotice(ad);
+      window.card.renderCard(ad);
     });
   };
 
