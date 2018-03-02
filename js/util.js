@@ -5,8 +5,7 @@
   var ENTER_KEYCODE = 13;
 
   var SUBMIT_SUCCESS_MESSAGE = 'Данные формы были успешно сохранены';
-  var ALERT_SHOW_STEPS = 100;
-  var ALERT_MIN_OPACITY = 0.7;
+  var ALERT_SHOW_TIME = 3000;
 
   var isEscEvent = function (evt, action, arg) {
     if (evt.keyCode === ESC_KEYCODE) {
@@ -49,15 +48,11 @@
     if (!alert) {
       return;
     }
-    var currentOpacity = alert.style.opacity;
-    var timer = setInterval(function () {
-      currentOpacity -= 1 / ALERT_SHOW_STEPS;
-      if (currentOpacity <= ALERT_MIN_OPACITY) {
-        clearInterval(timer);
-        document.body.removeChild(alert);
-      }
-      alert.style.opacity = currentOpacity;
-    }, ALERT_SHOW_STEPS);
+
+    var timer = setTimeout(function () {
+      clearTimeout(timer);
+      document.body.removeChild(alert);
+    }, ALERT_SHOW_TIME);
   };
 
   var successHandler = function () {
