@@ -14,13 +14,9 @@
 
   var MAX_NUMBER_OF_PINS_ON_MAP = 4;
 
-  var PRICE_VALUES = {
-    LOW_MIN: 0,
-    LOW_MAX: 10000,
-    MIDDLE_MAX: 50000,
-    low: 'low',
-    middle: 'middle',
-    high: 'high'
+  var Price = {
+    MIN: 10000,
+    MAX: 50000
   };
 
   var ads;
@@ -65,64 +61,77 @@
     });
   };
 
+  var filters = document.querySelector('.map__filters');
+  var typeSelect = filters.querySelector('#housing-type');
+  var priceSelect = filters.querySelector('#housing-price');
+  var roomsSelect = filters.querySelector('#housing-rooms');
+  var guestsSelect = filters.querySelector('#housing-guests');
+
   var filterValues = {
-    'type': '',
-    'price': '',
-    'rooms': '',
-    'guest': '',
-    'featuresList': []
+    type: '',
+    price: '',
+    rooms: '',
+    guest: '',
+    featuresList: []
   };
 
-  var checkPrice = function (val) {
-    if (val >= PRICE_VALUES.LOW_MIN && val < PRICE_VALUES.LOW_MAX) {
-      return PRICE_VALUES.low;
-    } else if (val >= PRICE_VALUES.LOW_MAX && val < PRICE_VALUES.MIDDLE_MAX) {
-      return PRICE_VALUES.middle;
-    } else if (val >= PRICE_VALUES.MIDDLE_MAX) {
-      return PRICE_VALUES.high;
-    }
-
-    return true;
+  var filterByValue = function (filteredArray, key, value) {
+    return filteredArray.filter(function (filterableItem) {
+      return filterableItem.offer[key].toString() === value;
+    });
   };
 
-  var getRank = function (comparableItem) {
-    var rank = 0;
-    if (comparableItem.offer.type === filterValues.type) {
-      rank += 2;
-    }
-    if (checkPrice(comparableItem.offer.price) === filterValues.price) {
-      rank += 2;
-    }
-    if (comparableItem.offer.rooms === +filterValues.rooms) {
-      rank += 1;
-    }
-    if (comparableItem.offer.guests === +filterValues.guests) {
-      rank += 1;
-    }
-    for (var i = 0; i < filterValues.featuresList.length; i++) {
-      var condition = comparableItem.offer.features.some(function (it) {
-        return it === filterValues.featuresList[i];
-      });
-      if (condition) {
-        rank += 1;
+  var filterByPrice = function (filteredArray, value) {
+    return filteredArray.filter(function (filterableItem) {
+      var price = +filterableItem.offer.price;
+      var priceType = 'any';
+      if (price >= Price.MIN && price <= Price.MAX) {
+        priceType = 'middle';
+      } else if (price > Price.MAX) {
+        priceType = 'high';
+      } else {
+        priceType = 'low';
       }
-    }
+      return priceType === value;
+    });
+  };
 
-    return rank;
+  var filterByFeatures = function (filteredArray) {
+    var checkedFeatures = filters.querySelectorAll('#housing-features [type="checkbox"]:checked');
+    var filteredByFeaturesArray = filteredArray;
+    [].forEach.call(checkedFeatures, function (eachItem) {
+      filteredByFeaturesArray = filteredByFeaturesArray.filter(function (item) {
+        return item.offer.features.indexOf(eachItem.value) >= 0;
+      });
+    });
+    return filteredByFeaturesArray;
   };
 
   var updateMapPins = function () {
+    var adsCopy = ads.slice();
+
+    // do filtration
+    if (typeSelect.value !== 'any') {
+      adsCopy = filterByValue(adsCopy, 'type', typeSelect.value);
+    }
+    if (priceSelect.value !== 'any') {
+      adsCopy = filterByPrice(adsCopy, priceSelect.value);
+    }
+    if (roomsSelect.value !== 'any') {
+      adsCopy = filterByValue(adsCopy, 'rooms', roomsSelect.value);
+    }
+    if (guestsSelect.value !== 'any') {
+      adsCopy = filterByValue(adsCopy, 'guests', guestsSelect.value);
+    }
+    adsCopy = filterByFeatures(adsCopy);
+
+    // clean map
     removeMapPins();
     window.card.closeAllOpened();
 
-    var adsCopy = ads.slice();
+    // render
     var mapPinsTemplate = template.querySelector('.map__pin');
-
-    var adSorted = adsCopy.sort(function (left, right) {
-      return getRank(right) - getRank(left);
-    });
-
-    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adSorted);
+    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adsCopy);
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
