@@ -21,6 +21,7 @@
   var successHandler = function (ads) {
     var adsClone = ads.slice();
     window.map.renderMapPins(template, adsClone);
+    window.map.showMapFilters(true);
   };
 
   var mainPinMoveHandler = function () {

@@ -49,8 +49,9 @@
   };
 
   var removeMapPins = function () {
-    for (var i = 0, n = mapPins.length; i < n; i++) {
-      map.querySelector('.map__pins').removeChild(mapPins[i]);
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var i = 0, n = pins.length; i < n; i++) {
+      map.querySelector('.map__pins').removeChild(pins[i]);
     }
   };
 
@@ -140,6 +141,20 @@
   addSelectOnChange('rooms');
   addSelectOnChange('guests');
 
+  var filterStates = {
+    visible: '1',
+    hidden: '0'
+  };
+
+  var showMapFilters = function (isActive) {
+    var mapFiltersContainer = map.querySelector('.map__filters-container');
+    if (isActive) {
+      mapFiltersContainer.style.opacity = filterStates.visible;
+    } else {
+      mapFiltersContainer.style.opacity = filterStates.hidden;
+    }
+  };
+
   window.map = {
     mapX: {
       min: X_COORD_MIN,
@@ -160,6 +175,7 @@
       height: MAP_PIN_HEIGHT
     },
     renderMapPins: renderMapPins,
-    removeMapPins: removeMapPins
+    removeMapPins: removeMapPins,
+    showMapFilters: showMapFilters
   };
 })();
