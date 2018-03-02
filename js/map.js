@@ -49,7 +49,6 @@
   };
 
   var removeMapPins = function () {
-    var mapPins = map.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var i = 0, n = mapPins.length; i < n; i++) {
       map.querySelector('.map__pins').removeChild(mapPins[i]);
     }
@@ -98,9 +97,10 @@
       rank += 1;
     }
     for (var i = 0; i < filterValues.featuresList.length; i++) {
-      if (elem.offer.features.some(function (it) {
-          return it === filterValues.featuresList[i];
-        })) {
+      var condition = elem.offer.features.some(function (it) {
+        return it === filterValues.featuresList[i];
+      });
+      if (condition) {
         rank += 1;
       }
     }
@@ -115,8 +115,8 @@
     var mapPinsTemplate = template.querySelector('.map__pin');
 
     var adSorted = adsCopy.sort(function (left, right) {
-          return getRank(right) - getRank(left);
-        });
+      return getRank(right) - getRank(left);
+    });
 
     var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adSorted, MAX_NUMBER_OF_PINS_ON_MAP);
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
