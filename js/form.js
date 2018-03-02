@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var map = document.querySelector('.map');
   var noticeForm = document.querySelector('.notice__form');
 
   var PRICE_MIN_BUNGALO = 0;
@@ -10,14 +11,13 @@
 
   var NOT_FOR_GUESTS_OPTION_VALUE = 100;
 
-  var fillAddressField = function () {
+  var fillAddressField = function (xCoordinate, yCoordinate) {
     var addressFormField = noticeForm.querySelector('#address');
+    var initialPinX = map.offsetWidth / 2;
+    var initialPinY = map.offsetHeight / 2;
 
-    var initialPinX = (window.map.mapX.max - window.map.mapX.min) / 2;
-    var initialPinY = (window.map.mapY.max - window.map.mapY.min) / 2;
-    var mainPinX = initialPinX - window.map.pin.width / 2;
-    var mainPinY = initialPinY - window.map.pin.height;
-
+    var mainPinX = (xCoordinate || initialPinX);
+    var mainPinY = (yCoordinate || initialPinY);
     addressFormField.value = mainPinX + ', ' + mainPinY;
   };
 
@@ -120,7 +120,6 @@
   var resetPage = function (evt) {
     evt.preventDefault();
 
-    var map = document.querySelector('.map');
     var mainPin = map.querySelector('.map__pin--main');
 
     // все заполненные поля стираются
@@ -151,11 +150,6 @@
 
   var submitFormHandler = function () {
     noticeForm.submit();
-
-    // TODO: remove this stuff later
-    // console.log('successfully submitted');
-    // evt.preventDefault();
-    // resetPage();
   };
 
   var initializeFormListeners = function () {
