@@ -72,11 +72,11 @@
   var DEBOUNCE_TIMEOUT = 500;
   var lastTimeout;
 
-  var debounce = function (func) {
+  var debounce = function (cb) {
     if (lastTimeout) {
       clearTimeout(lastTimeout);
     }
-    lastTimeout = setTimeout(func, DEBOUNCE_TIMEOUT);
+    lastTimeout = setTimeout(cb, DEBOUNCE_TIMEOUT);
   };
 
   window.util = {

@@ -28,14 +28,14 @@
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
-  var getMapPinsFilledFragment = function (pinsTemplate, adsTemp, length) {
+  var getMapPinsFilledFragment = function (pinsTemplate, adsArray, length) {
     var fragment = document.createDocumentFragment();
 
     for (var i = 0, n = length; i < n; i++) {
       var pinElementCloned = pinsTemplate.cloneNode(true);
 
-      var renderedPinElement = window.pin.renderMapPin(pinElementCloned, adsTemp[i]);
-      addClickListener(renderedPinElement, adsTemp[i]);
+      var renderedPinElement = window.pin.renderMapPin(pinElementCloned, adsArray[i]);
+      addClickListener(renderedPinElement, adsArray[i]);
       fragment.appendChild(renderedPinElement);
     }
 
