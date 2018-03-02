@@ -135,7 +135,7 @@
   };
 
   window.card = {
-    renderCard: renderCard,
-    closeAllOpenedCards: closeAllOpenedCards
+    render: renderCard,
+    closeAllOpened: closeAllOpenedCards
   };
 })();

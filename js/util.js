@@ -7,6 +7,8 @@
   var SUBMIT_SUCCESS_MESSAGE = 'Данные формы были успешно сохранены';
   var ALERT_SHOW_TIME = 3000;
 
+  var DEBOUNCE_TIMEOUT = 500;
+
   var isEscEvent = function (evt, action, arg) {
     if (evt.keyCode === ESC_KEYCODE) {
       action(arg);
@@ -69,7 +71,6 @@
     hideAlert(alertNode);
   };
 
-  var DEBOUNCE_TIMEOUT = 500;
   var lastTimeout;
 
   var debounce = function (cb) {
@@ -88,9 +89,9 @@
     successHandler: successHandler,
     errorHandler: errorHandler,
     alertMessage: {
-      getSuccessSubmitMessage: SUBMIT_SUCCESS_MESSAGE,
-      getAlertMessageNode: getAlertMessageNode,
-      hideAlert: hideAlert
+      getSuccessSubmitText: SUBMIT_SUCCESS_MESSAGE,
+      getNode: getAlertMessageNode,
+      hide: hideAlert
     },
     debounce: debounce
   };

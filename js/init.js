@@ -20,8 +20,8 @@
 
   var successHandler = function (ads) {
     var adsClone = ads.slice();
-    window.map.renderMapPins(template, adsClone);
-    window.map.showMapFilters(true);
+    window.map.renderPins(template, adsClone);
+    window.map.showFilters(true);
   };
 
   var mainPinMoveHandler = function () {
@@ -39,9 +39,9 @@
 
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
   mainPin.addEventListener('mousedown', mainPinMoveHandler);
-  mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDownMainPinHandler);
+  mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
 
-  window.form.runForm();
+  window.form.run();
 
   window.init = {
     activatePage: activatePage

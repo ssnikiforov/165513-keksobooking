@@ -54,7 +54,7 @@
 
   var addClickListener = function (pinElement, ad) {
     pinElement.addEventListener('click', function () {
-      window.card.renderCard(ad);
+      window.card.render(ad);
     });
   };
 
@@ -113,7 +113,7 @@
 
   var updateMapPins = function () {
     removeMapPins();
-    window.card.closeAllOpenedCards();
+    window.card.closeAllOpened();
 
     var adsCopy = ads.slice();
     var mapPinsTemplate = template.querySelector('.map__pin');
@@ -171,14 +171,14 @@
   };
 
   window.map = {
-    mapX: {
+    axisX: {
       min: X_COORD_MIN,
       max: X_COORD_MAX,
       getRandomizedValue: function () {
         return window.util.getRandomNumberFromRange(X_COORD_MIN, X_COORD_MAX);
       }
     },
-    mapY: {
+    axisY: {
       min: Y_COORD_MIN,
       max: Y_COORD_MAX,
       getRandomizedValue: function () {
@@ -189,8 +189,8 @@
       width: MAP_PIN_WIDTH,
       height: MAP_PIN_HEIGHT
     },
-    renderMapPins: renderMapPins,
-    removeMapPins: removeMapPins,
-    showMapFilters: showMapFilters
+    renderPins: renderMapPins,
+    removePins: removeMapPins,
+    showFilters: showMapFilters
   };
 })();
