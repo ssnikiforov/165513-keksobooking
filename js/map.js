@@ -123,7 +123,7 @@
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
-  var addSelectOnChange = function (arg) {
+  var addChangeSelectHandler = function (arg) {
     var node = document.querySelector('#housing-' + arg);
     node.addEventListener('change', function () {
       if (node.value === 'any') {
@@ -136,10 +136,22 @@
     });
   };
 
-  addSelectOnChange('type');
-  addSelectOnChange('price');
-  addSelectOnChange('rooms');
-  addSelectOnChange('guests');
+  addChangeSelectHandler('type');
+  addChangeSelectHandler('price');
+  addChangeSelectHandler('rooms');
+  addChangeSelectHandler('guests');
+
+  var features = document.querySelector('#housing-features');
+  features.addEventListener('change', function (evt) {
+    if (evt.target.type === 'checkbox') {
+      if (evt.target.checked) {
+        filterValues.featuresList.push(evt.target.value);
+      } else {
+        filterValues.featuresList.splice(filterValues.featuresList.indexOf(evt.target.value), 1);
+      }
+    }
+    window.util.debounce(updateMapPins);
+  });
 
   var filterStates = {
     visible: '1',
