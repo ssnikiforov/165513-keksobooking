@@ -83,22 +83,22 @@
     return true;
   };
 
-  var getRank = function (criteria) {
+  var getRank = function (comparableItem) {
     var rank = 0;
-    if (criteria.offer.type === filterValues.type) {
+    if (comparableItem.offer.type === filterValues.type) {
       rank += 2;
     }
-    if (checkPrice(criteria.offer.price) === filterValues.price) {
+    if (checkPrice(comparableItem.offer.price) === filterValues.price) {
       rank += 2;
     }
-    if (criteria.offer.rooms === +filterValues.rooms) {
+    if (comparableItem.offer.rooms === +filterValues.rooms) {
       rank += 1;
     }
-    if (criteria.offer.guests === +filterValues.guests) {
+    if (comparableItem.offer.guests === +filterValues.guests) {
       rank += 1;
     }
     for (var i = 0; i < filterValues.featuresList.length; i++) {
-      var condition = criteria.offer.features.some(function (it) {
+      var condition = comparableItem.offer.features.some(function (it) {
         return it === filterValues.featuresList[i];
       });
       if (condition) {
