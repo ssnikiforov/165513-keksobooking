@@ -32,15 +32,18 @@
 
     var mapPinsTemplate = template.querySelector('.map__pin');
 
-    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, ads, MAX_NUMBER_OF_PINS_ON_MAP);
+    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, ads);
 
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
-  var getMapPinsFilledFragment = function (pinsTemplate, adsArray, length) {
+  var getMapPinsFilledFragment = function (pinsTemplate, adsArray) {
     var fragment = document.createDocumentFragment();
+    var resultLength = adsArray.length < MAX_NUMBER_OF_PINS_ON_MAP ? adsArray.length : MAX_NUMBER_OF_PINS_ON_MAP;
+    console.log(adsArray.length);
+    console.log(resultLength);
 
-    for (var i = 0, n = length; i < n; i++) {
+    for (var i = 0, n = resultLength; i < n; i++) {
       var pinElementCloned = pinsTemplate.cloneNode(true);
 
       var renderedPinElement = window.pin.renderMapPin(pinElementCloned, adsArray[i]);
@@ -121,7 +124,7 @@
       return getRank(right) - getRank(left);
     });
 
-    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adSorted, MAX_NUMBER_OF_PINS_ON_MAP);
+    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adSorted);
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
