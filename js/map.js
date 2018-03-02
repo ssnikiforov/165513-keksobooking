@@ -37,17 +37,15 @@
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
-  var getMapPinsFilledFragment = function (pinsTemplate, adsArray) {
+  var getMapPinsFilledFragment = function (pinsTemplate, fillingAds) {
     var fragment = document.createDocumentFragment();
-    var resultLength = adsArray.length < MAX_NUMBER_OF_PINS_ON_MAP ? adsArray.length : MAX_NUMBER_OF_PINS_ON_MAP;
-    console.log(adsArray.length);
-    console.log(resultLength);
+    var resultLength = fillingAds.length < MAX_NUMBER_OF_PINS_ON_MAP ? fillingAds.length : MAX_NUMBER_OF_PINS_ON_MAP;
 
     for (var i = 0, n = resultLength; i < n; i++) {
       var pinElementCloned = pinsTemplate.cloneNode(true);
 
-      var renderedPinElement = window.pin.renderMapPin(pinElementCloned, adsArray[i]);
-      addClickListener(renderedPinElement, adsArray[i]);
+      var renderedPinElement = window.pin.renderMapPin(pinElementCloned, fillingAds[i]);
+      addClickListener(renderedPinElement, fillingAds[i]);
       fragment.appendChild(renderedPinElement);
     }
 
