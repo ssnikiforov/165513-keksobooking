@@ -80,6 +80,7 @@
     } else if (val >= PRICE_VALUES.MIDDLE_MAX) {
       return PRICE_VALUES.high;
     }
+
     return true;
   };
 
@@ -105,6 +106,7 @@
         rank += 1;
       }
     }
+
     return rank;
   };
 
