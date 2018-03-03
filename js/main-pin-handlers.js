@@ -35,16 +35,19 @@
       var yCoordMax = window.map.axisY.max;
       var yCoordMin = window.map.axisY.min;
 
-      if (leftOffset > xCoordMax - window.map.pin.width / 2) {
-        leftOffset = xCoordMax - window.map.pin.width / 2;
-      } else if (leftOffset < xCoordMin + window.map.pin.width / 2) {
-        leftOffset = xCoordMin + window.map.pin.width / 2;
+      var mapPinWidthCorrection = Math.ceil(window.map.pin.width / 2);
+      var mapPinHeightCorrection = window.map.pin.height - window.map.pin.tailHeight;
+
+      if (leftOffset > xCoordMax - mapPinWidthCorrection) {
+        leftOffset = xCoordMax - mapPinWidthCorrection;
+      } else if (leftOffset < xCoordMin + mapPinWidthCorrection) {
+        leftOffset = xCoordMin + mapPinWidthCorrection;
       }
 
-      if (topOffset > yCoordMax) {
-        topOffset = yCoordMax;
-      } else if (topOffset < yCoordMin) {
-        topOffset = yCoordMin;
+      if (topOffset > yCoordMax - mapPinHeightCorrection) {
+        topOffset = yCoordMax - mapPinHeightCorrection;
+      } else if (topOffset < yCoordMin - mapPinHeightCorrection) {
+        topOffset = yCoordMin - mapPinHeightCorrection;
       }
 
       return {left: leftOffset, top: topOffset};

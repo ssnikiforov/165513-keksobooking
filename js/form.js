@@ -29,7 +29,7 @@
     var initialPinY = map.offsetHeight / 2;
 
     var mainPinX = (xCoordinate || initialPinX);
-    var mainPinY = (yCoordinate || initialPinY);
+    var mainPinY = (yCoordinate + Math.ceil(window.map.pin.height / 2) + window.map.pin.tailHeight || initialPinY);
     addressFormField.value = mainPinX + ', ' + mainPinY;
   };
 

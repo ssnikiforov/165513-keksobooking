@@ -1,8 +1,11 @@
 'use strict';
 
 (function () {
-  var MAP_PIN_WIDTH = 62;
-  var MAP_PIN_HEIGHT = 84;
+  var PinSize = {
+    WIDTH: 65,
+    HEIGHT: 65
+  };
+  var TAIL_HEIGHT = 16;
 
   var map = document.querySelector('.map');
   var mapPins = map.querySelector('.map__pins');
@@ -195,8 +198,9 @@
       }
     },
     pin: {
-      width: MAP_PIN_WIDTH,
-      height: MAP_PIN_HEIGHT
+      width: PinSize.WIDTH,
+      height: PinSize.HEIGHT,
+      tailHeight: TAIL_HEIGHT
     },
     renderPins: renderMapPins,
     removePins: removeMapPins,

@@ -46,5 +46,4 @@
   window.init = {
     activatePage: activatePage
   };
-  //
 })();
