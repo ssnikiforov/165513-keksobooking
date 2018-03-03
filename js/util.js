@@ -9,6 +9,8 @@
 
   var DEBOUNCE_TIMEOUT = 500;
 
+  var _lastTimeout;
+
   var isEscEvent = function (evt, action, arg) {
     if (evt.keyCode === ESC_KEYCODE) {
       action(arg);
@@ -71,13 +73,11 @@
     hideAlert(alertNode);
   };
 
-  var lastTimeout;
-
   var debounce = function (cb) {
-    if (lastTimeout) {
-      clearTimeout(lastTimeout);
+    if (_lastTimeout) {
+      clearTimeout(_lastTimeout);
     }
-    lastTimeout = setTimeout(cb, DEBOUNCE_TIMEOUT);
+    _lastTimeout = setTimeout(cb, DEBOUNCE_TIMEOUT);
   };
 
   window.util = {
