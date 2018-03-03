@@ -7,10 +7,10 @@
   };
   var TAIL_HEIGHT = 16;
 
-  var _map = document.querySelector('.map');
-  var _mapPins = _map.querySelector('.map__pins');
+  var map = document.querySelector('.map');
+  var mapPins = map.querySelector('.map__pins');
   var X_COORD_MIN = 0;
-  var X_COORD_MAX = _mapPins.offsetWidth;
+  var X_COORD_MAX = mapPins.offsetWidth;
 
   var Y_COORD_MIN = 150;
   var Y_COORD_MAX = 500;
@@ -22,18 +22,18 @@
     MAX: 50000
   };
 
-  var _ads;
-  var _template;
+  var ads;
+  var template;
 
   var renderMapPins = function (sourceTemplate, sourceAds) {
-    _ads = sourceAds;
-    _template = sourceTemplate;
+    ads = sourceAds;
+    template = sourceTemplate;
 
-    var mapPinsTemplate = _template.querySelector('.map__pin');
+    var mapPinsTemplate = template.querySelector('.map__pin');
 
-    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, _ads);
+    var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, ads);
 
-    _map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
+    map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
   var getMapPinsFilledFragment = function (pinsTemplate, fillingAds) {
@@ -60,7 +60,7 @@
   var removeMapPins = function () {
     var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     [].forEach.call(pins, function (pin) {
-      _map.querySelector('.map__pins').removeChild(pin);
+      map.querySelector('.map__pins').removeChild(pin);
     });
   };
 
@@ -111,7 +111,7 @@
   };
 
   var updateMapPins = function () {
-    var adsCopy = _ads.slice();
+    var adsCopy = ads.slice();
 
     // do filtration
     if (typeSelect.value !== 'any') {
@@ -133,9 +133,9 @@
     window.card.closeAllOpened();
 
     // render
-    var mapPinsTemplate = _template.querySelector('.map__pin');
+    var mapPinsTemplate = template.querySelector('.map__pin');
     var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adsCopy);
-    _map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
+    map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
   var addChangeSelectHandler = function (arg) {
@@ -174,7 +174,7 @@
   };
 
   var showMapFilters = function (isActive) {
-    var mapFiltersContainer = _map.querySelector('.map__filters-container');
+    var mapFiltersContainer = map.querySelector('.map__filters-container');
     if (isActive) {
       mapFiltersContainer.style.opacity = filterStates.visible;
     } else {

@@ -10,7 +10,7 @@
     'conditioner'
   ];
 
-  var _map = document.querySelector('.map');
+  var map = document.querySelector('.map');
 
   var modifyFeatures = function (featureListElement, ad, cardElement) {
     var missingFeatures = FEATURES.filter(function (feature) {
@@ -100,19 +100,19 @@
   };
 
   var closeCard = function (card) {
-    _map.removeChild(card);
+    map.removeChild(card);
     window.removeEventListener('keydown', pressEscButtonHandler);
   };
 
   var closeAllOpenedCards = function () {
-    var openedCards = _map.querySelectorAll('.map__card');
+    var openedCards = map.querySelectorAll('.map__card');
     [].forEach.call(openedCards, function (openedCard) {
       closeCard(openedCard);
     });
   };
 
   var pressEscButtonHandler = function (evt) {
-    var cardEl = _map.querySelector('.map__card');
+    var cardEl = map.querySelector('.map__card');
 
     window.util.isEscEvent(evt, closeCard, cardEl);
   };
@@ -127,10 +127,10 @@
 
     closeAllOpenedCards();
 
-    var mapFiltersContainer = _map.querySelector('.map__filters-container');
-    _map.insertBefore(fragment, mapFiltersContainer);
+    var mapFiltersContainer = map.querySelector('.map__filters-container');
+    map.insertBefore(fragment, mapFiltersContainer);
 
-    var cardEl = _map.querySelector('.map__card');
+    var cardEl = map.querySelector('.map__card');
     addCloseCardEventListeners(cardEl);
   };
 
