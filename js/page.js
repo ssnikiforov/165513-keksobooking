@@ -36,15 +36,19 @@
     }
   };
 
-  window.form.switchFieldsetsActivation(_isPageActivated);
+  var initPage = function () {
+    window.form.switchFieldsetsActivation(_isPageActivated);
 
-  _mainPin.addEventListener('mouseup', mainPinMoveHandler);
-  _mainPin.addEventListener('mousedown', mainPinMoveHandler);
-  _mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
+    _mainPin.addEventListener('mouseup', mainPinMoveHandler);
+    _mainPin.addEventListener('mousedown', mainPinMoveHandler);
+    _mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
 
-  window.form.run();
+    window.form.run();
+  };
 
-  window.init = {
-    activatePage: activatePage
+  initPage();
+
+  window.page = {
+    activate: activatePage
   };
 })();

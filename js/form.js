@@ -153,7 +153,7 @@
     fillAddressField();
 
     // отключить форму
-    window.init.activatePage(false);
+    window.page.activate(false);
   };
 
   var successHandler = function () {
