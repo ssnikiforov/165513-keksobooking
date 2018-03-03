@@ -1,40 +1,46 @@
 'use strict';
 
 (function () {
-  var _map = document.querySelector('.map');
-  var _template = document.querySelector('template').content;
-  var _cardsForm = document.querySelector('.notice__form');
-  var _mainPin = _map.querySelector('.map__pin--main');
+  var map = document.querySelector('.map');
+  var template = document.querySelector('template').content;
+  var cardsForm = document.querySelector('.notice__form');
+  var mainPin = map.querySelector('.map__pin--main');
 
-  // disable page by default
   var isPageActive = false;
 
-  var activatePage = function (activationFlag) {
-    if (activationFlag) { // do page active
-      isPageActive = true;
+  var activatePage = function () {
+    if (!window.page.isActive) {
+      window.page.isActive = true;
       window.backend.load(successHandler, window.util.errorHandler);
-      _map.classList.remove('map--faded');
-      _cardsForm.classList.remove('notice__form--disabled');
+      map.classList.remove('map--faded');
+      cardsForm.classList.remove('notice__form--disabled');
       window.form.fillAddressField();
-    } else { // do page inactive
-      isPageActive = false;
-      _map.classList.add('map--faded');
-      _cardsForm.classList.add('notice__form--disabled');
+
+      window.form.switchFieldsetsActivation(true);
+      window.form.changePrices(true);
     }
-    window.form.switchFieldsetsActivation(activationFlag);
+  };
+
+  var disablePage = function () {
+    if (window.page.isActive) {
+      window.page.isActive = false;
+      map.classList.add('map--faded');
+      cardsForm.classList.add('notice__form--disabled');
+
+      window.form.switchFieldsetsActivation(false);
+      window.form.changePrices(false);
+    }
   };
 
   var successHandler = function (ads) {
     var adsClone = ads.slice();
-    window.map.renderPins(_template, adsClone);
+    window.map.renderPins(template, adsClone);
     window.map.showFilters(true);
   };
 
   var initPage = function () {
-    window.form.switchFieldsetsActivation(isPageActive);
-
-    _mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
-
+    window.form.switchFieldsetsActivation(false);
+    mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
     window.form.run();
   };
 
@@ -42,6 +48,7 @@
 
   window.page = {
     activate: activatePage,
+    disable: disablePage,
     isActive: isPageActive
   };
 })();

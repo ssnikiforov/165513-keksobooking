@@ -20,27 +20,31 @@
 
   var NOT_FOR_GUESTS_OPTION_VALUE = 100;
 
-  var _map = document.querySelector('.map');
-  var _cardsForm = document.querySelector('.notice__form');
+  var map = document.querySelector('.map');
+  var cardsForm = document.querySelector('.notice__form');
 
   var fillAddressField = function (xCoordinate, yCoordinate) {
-    var addressFormField = _cardsForm.querySelector('#address');
-    var initialPinX = _map.offsetWidth / 2;
-    var initialPinY = _map.offsetHeight / 2;
+    var addressFormField = cardsForm.querySelector('#address');
+    var initialPinX = map.offsetWidth / 2;
+    var initialPinY = map.offsetHeight / 2;
 
     var mainPinX = (xCoordinate || initialPinX);
     var mainPinY = (yCoordinate + Math.ceil(window.map.pin.height / 2) + window.map.pin.tailHeight || initialPinY);
     addressFormField.value = mainPinX + ', ' + mainPinY;
   };
 
-  // form validation
   var changeTypeHandler = function () {
-    changePrices();
+    changePrices(true);
   };
 
-  var changePrices = function () {
-    var typeEl = _cardsForm.querySelector('#type');
-    var priceEl = _cardsForm.querySelector('#price');
+  var changePrices = function (activationFlag) {
+    var priceEl = cardsForm.querySelector('#price');
+    if (!activationFlag) {
+      priceEl.removeAttribute('min');
+      return;
+    }
+
+    var typeEl = cardsForm.querySelector('#type');
     var typesConstants = TYPES;
 
     if (typeEl.value === typesConstants[0]) {
@@ -59,7 +63,7 @@
   };
 
   var changeTimeInHandler = function (evt) {
-    var timeOutEl = _cardsForm.querySelector('#timeout');
+    var timeOutEl = cardsForm.querySelector('#timeout');
     var timeValuesConstants = TIME_VALUES;
 
     if (evt.target.value === timeValuesConstants[0]) {
@@ -72,7 +76,7 @@
   };
 
   var changeTimeOutHandler = function (evt) {
-    var timeInEl = _cardsForm.querySelector('#timein');
+    var timeInEl = cardsForm.querySelector('#timein');
     var timeValuesConstants = TIME_VALUES;
 
     if (evt.target.value === timeValuesConstants[0]) {
@@ -85,8 +89,8 @@
   };
 
   var changeRoomNumber = function () {
-    var roomNumberEl = _cardsForm.querySelector('#room_number');
-    var capacityEl = _cardsForm.querySelector('#capacity');
+    var roomNumberEl = cardsForm.querySelector('#room_number');
+    var capacityEl = cardsForm.querySelector('#capacity');
 
     var guests = capacityEl.querySelectorAll('option');
     var notForGuests = capacityEl.querySelector('option[value="0"]');
@@ -108,7 +112,7 @@
   };
 
   var validateCapacity = function () {
-    var capacityEl = _cardsForm.querySelector('#capacity');
+    var capacityEl = cardsForm.querySelector('#capacity');
 
     if (capacityEl.selectedOptions[0].hasAttribute('disabled')) {
       capacityEl.setCustomValidity('Выбрано неверное значение');
@@ -130,30 +134,23 @@
   };
 
   var resetPage = function () {
+    var mainPin = map.querySelector('.map__pin--main');
 
-    var mainPin = _map.querySelector('.map__pin--main');
+    cardsForm.reset();
 
-    // все заполненные поля стираются
-    _cardsForm.reset();
-
-    // метки похожих объявлений удаляются
     window.map.removePins();
 
-    // карточка активного объявления удаляется
-    var cards = _map.querySelectorAll('.map__card');
+    var cards = map.querySelectorAll('.map__card');
     [].forEach.call(cards, function (card) {
-      _map.removeChild(card);
+      map.removeChild(card);
     });
 
-    // метка адреса возвращается в исходное положение
     mainPin.style.removeProperty('top');
     mainPin.style.removeProperty('left');
 
-    // значение поля адреса корректируется соответственно положению метки
     fillAddressField();
 
-    // отключить форму
-    window.page.activate(false);
+    window.page.disable();
   };
 
   var successHandler = function () {
@@ -167,17 +164,17 @@
   var submitFormHandler = function (evt) {
     evt.preventDefault();
 
-    var formData = new FormData(_cardsForm);
+    var formData = new FormData(cardsForm);
     window.backend.upload(formData, successHandler, window.util.errorHandler);
   };
 
   var initializeFormListeners = function () {
-    var typeEl = _cardsForm.querySelector('#type');
-    var timeInEl = _cardsForm.querySelector('#timein');
-    var timeOutEl = _cardsForm.querySelector('#timeout');
-    var roomNumberEl = _cardsForm.querySelector('#room_number');
-    var capacityEl = _cardsForm.querySelector('#capacity');
-    var resetButtonEl = _cardsForm.querySelector('.form__reset');
+    var typeEl = cardsForm.querySelector('#type');
+    var timeInEl = cardsForm.querySelector('#timein');
+    var timeOutEl = cardsForm.querySelector('#timeout');
+    var roomNumberEl = cardsForm.querySelector('#room_number');
+    var capacityEl = cardsForm.querySelector('#capacity');
+    var resetButtonEl = cardsForm.querySelector('.form__reset');
 
     typeEl.addEventListener('change', changeTypeHandler);
     timeInEl.addEventListener('change', changeTimeInHandler);
@@ -185,23 +182,22 @@
     roomNumberEl.addEventListener('change', changeRoomNumberHandler);
     capacityEl.addEventListener('change', changeCapacityHandler);
     resetButtonEl.addEventListener('click', clickResetButtonHandler);
-    _cardsForm.addEventListener('submit', submitFormHandler);
+    cardsForm.addEventListener('submit', submitFormHandler);
   };
 
   var switchFieldsetsActivation = function (activationFlag) {
-    var cardFieldsets = _cardsForm.querySelectorAll('.form__element');
+    var cardFieldsets = cardsForm.querySelectorAll('.form__element');
 
     [].forEach.call(cardFieldsets, function (cardFieldset) {
       cardFieldset.disabled = !activationFlag;
     });
 
-    var avatarFieldset = _cardsForm.querySelector('.notice__header');
+    var avatarFieldset = cardsForm.querySelector('.notice__header');
     avatarFieldset.disabled = !activationFlag;
   };
 
   var runForm = function () {
     fillAddressField();
-    changePrices();
     changeRoomNumber();
     initializeFormListeners();
   };
@@ -209,6 +205,7 @@
   window.form = {
     fillAddressField: fillAddressField,
     switchFieldsetsActivation: switchFieldsetsActivation,
+    changePrices: changePrices,
     run: runForm
   };
 })();

@@ -9,7 +9,7 @@
 
   var DEBOUNCE_TIMEOUT = 500;
 
-  var _lastTimeout;
+  var lastTimeout;
 
   var isEscEvent = function (evt, action, arg) {
     if (evt.keyCode === ESC_KEYCODE) {
@@ -74,10 +74,10 @@
   };
 
   var debounce = function (cb) {
-    if (_lastTimeout) {
-      clearTimeout(_lastTimeout);
+    if (lastTimeout) {
+      clearTimeout(lastTimeout);
     }
-    _lastTimeout = setTimeout(cb, DEBOUNCE_TIMEOUT);
+    lastTimeout = setTimeout(cb, DEBOUNCE_TIMEOUT);
   };
 
   window.util = {
