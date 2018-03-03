@@ -9,23 +9,27 @@
   var isPageActive = false;
 
   var activatePage = function () {
-    isPageActive = true;
-    window.backend.load(successHandler, window.util.errorHandler);
-    map.classList.remove('map--faded');
-    cardsForm.classList.remove('notice__form--disabled');
-    window.form.fillAddressField();
+    if (!window.page.isActive) {
+      window.page.isActive = true;
+      window.backend.load(successHandler, window.util.errorHandler);
+      map.classList.remove('map--faded');
+      cardsForm.classList.remove('notice__form--disabled');
+      window.form.fillAddressField();
 
-    window.form.switchFieldsetsActivation(true);
-    window.form.changePrices(true);
+      window.form.switchFieldsetsActivation(true);
+      window.form.changePrices(true);
+    }
   };
 
   var disablePage = function () {
-    isPageActive = false;
-    map.classList.add('map--faded');
-    cardsForm.classList.add('notice__form--disabled');
+    if (window.page.isActive) {
+      window.page.isActive = false;
+      map.classList.add('map--faded');
+      cardsForm.classList.add('notice__form--disabled');
 
-    window.form.switchFieldsetsActivation(false);
-    window.form.changePrices(false);
+      window.form.switchFieldsetsActivation(false);
+      window.form.changePrices(false);
+    }
   };
 
   var successHandler = function (ads) {
@@ -35,10 +39,8 @@
   };
 
   var initPage = function () {
-    window.form.switchFieldsetsActivation(isPageActive);
-
+    window.form.switchFieldsetsActivation(false);
     mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
-
     window.form.run();
   };
 
