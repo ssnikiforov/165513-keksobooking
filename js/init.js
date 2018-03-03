@@ -1,45 +1,46 @@
 'use strict';
 
 (function () {
-  var map = document.querySelector('.map');
-  var template = document.querySelector('template').content;
-  var cardsForm = document.querySelector('.notice__form');
-  var mainPin = map.querySelector('.map__pin--main');
+  var _map = document.querySelector('.map');
+  var _template = document.querySelector('template').content;
+  var _cardsForm = document.querySelector('.notice__form');
+  var _mainPin = _map.querySelector('.map__pin--main');
+
+  // disable page by default
+  var _isPageActivated = false;
 
   var activatePage = function (activationFlag) {
     if (!activationFlag) {
-      isPageActivated = false;
-      map.classList.add('map--faded');
-      cardsForm.classList.add('notice__form--disabled');
+      _isPageActivated = false;
+      _map.classList.add('map--faded');
+      _cardsForm.classList.add('notice__form--disabled');
     } else {
-      map.classList.remove('map--faded');
-      cardsForm.classList.remove('notice__form--disabled');
+      _map.classList.remove('map--faded');
+      _cardsForm.classList.remove('notice__form--disabled');
     }
     window.form.switchFieldsetsActivation(activationFlag);
   };
 
   var successHandler = function (ads) {
     var adsClone = ads.slice();
-    window.map.renderPins(template, adsClone);
+    window.map.renderPins(_template, adsClone);
     window.map.showFilters(true);
   };
 
   var mainPinMoveHandler = function () {
-    if (!isPageActivated) {
-      isPageActivated = true;
-      activatePage(isPageActivated);
+    if (!_isPageActivated) {
+      _isPageActivated = true;
+      activatePage(_isPageActivated);
       window.backend.load(successHandler, window.util.errorHandler);
       window.form.fillAddressField();
     }
   };
 
-  // disable page by default
-  var isPageActivated = false;
-  window.form.switchFieldsetsActivation(isPageActivated);
+  window.form.switchFieldsetsActivation(_isPageActivated);
 
-  mainPin.addEventListener('mouseup', mainPinMoveHandler);
-  mainPin.addEventListener('mousedown', mainPinMoveHandler);
-  mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
+  _mainPin.addEventListener('mouseup', mainPinMoveHandler);
+  _mainPin.addEventListener('mousedown', mainPinMoveHandler);
+  _mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
 
   window.form.run();
 

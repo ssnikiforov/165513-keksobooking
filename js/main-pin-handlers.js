@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var map = document.querySelector('.map');
-  var mainPin = map.querySelector('.map__pin--main');
+  var _map = document.querySelector('.map');
+  var _mainPin = _map.querySelector('.map__pin--main');
 
   var mouseDownMainPinHandler = function (evt) {
     evt.preventDefault();
@@ -23,8 +23,8 @@
         y: someEvt.clientY
       };
 
-      var leftOffset = mainPin.offsetLeft - shift.x;
-      var topOffset = mainPin.offsetTop - shift.y;
+      var leftOffset = _mainPin.offsetLeft - shift.x;
+      var topOffset = _mainPin.offsetTop - shift.y;
 
       return {left: leftOffset, top: topOffset};
     };
@@ -59,8 +59,8 @@
       var offset = calculateMainPinCoordinates(moveEvt);
       var pinOffset = calculatePinOffset(offset.left, offset.top);
 
-      mainPin.style.left = pinOffset.left + 'px';
-      mainPin.style.top = pinOffset.top + 'px';
+      _mainPin.style.left = pinOffset.left + 'px';
+      _mainPin.style.top = pinOffset.top + 'px';
 
       window.form.fillAddressField(pinOffset.left, pinOffset.top);
     };
@@ -71,8 +71,8 @@
       var offset = calculateMainPinCoordinates(upEvt);
       var pinOffset = calculatePinOffset(offset.left, offset.top);
 
-      mainPin.style.left = pinOffset.left + 'px';
-      mainPin.style.top = pinOffset.top + 'px';
+      _mainPin.style.left = pinOffset.left + 'px';
+      _mainPin.style.top = pinOffset.top + 'px';
 
       window.form.fillAddressField(pinOffset.left, pinOffset.top);
 
