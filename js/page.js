@@ -7,16 +7,19 @@
   var _mainPin = _map.querySelector('.map__pin--main');
 
   // disable page by default
-  var _isPageActivated = false;
+  var isPageActive = false;
 
   var activatePage = function (activationFlag) {
-    if (!activationFlag) {
-      _isPageActivated = false;
-      _map.classList.add('map--faded');
-      _cardsForm.classList.add('notice__form--disabled');
-    } else {
+    if (activationFlag) { // do page active
+      isPageActive = true;
+      window.backend.load(successHandler, window.util.errorHandler);
       _map.classList.remove('map--faded');
       _cardsForm.classList.remove('notice__form--disabled');
+      window.form.fillAddressField();
+    } else { // do page inactive
+      isPageActive = false;
+      _map.classList.add('map--faded');
+      _cardsForm.classList.add('notice__form--disabled');
     }
     window.form.switchFieldsetsActivation(activationFlag);
   };
@@ -27,17 +30,8 @@
     window.map.showFilters(true);
   };
 
-  var mainPinMoveHandler = function (activationFlag) {
-    if (!activationFlag) {
-      _isPageActivated = true;
-      activatePage(_isPageActivated);
-      window.backend.load(successHandler, window.util.errorHandler);
-      window.form.fillAddressField();
-    }
-  };
-
   var initPage = function () {
-    window.form.switchFieldsetsActivation(_isPageActivated);
+    window.form.switchFieldsetsActivation(isPageActive);
 
     _mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
 
@@ -48,6 +42,6 @@
 
   window.page = {
     activate: activatePage,
-    mainPinMoveHandler: mainPinMoveHandler
+    isActive: isPageActive
   };
 })();

@@ -3,14 +3,12 @@
 (function () {
   var _map = document.querySelector('.map');
   var _mainPin = _map.querySelector('.map__pin--main');
-  var _isPageActive = false;
 
   var mouseDownMainPinHandler = function (evt) {
     evt.preventDefault();
 
-    if (!_isPageActive) {
-      window.page.mainPinMoveHandler(_isPageActive);
-      _isPageActive = true;
+    if (!window.page.isActive) {
+      window.page.activate(true);
     }
 
     var startCoords = {
