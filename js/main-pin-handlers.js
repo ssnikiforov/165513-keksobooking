@@ -7,10 +7,7 @@
   var mouseDownMainPinHandler = function (evt) {
     evt.preventDefault();
 
-    if (!window.page.isActive) {
-      window.page.activate(true);
-    }
-
+    var isPageActive = window.page.isActive;
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY
@@ -60,6 +57,10 @@
     var mainPinMouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
 
+      if (isPageActive === false) {
+        window.page.activate(true);
+      }
+
       var offset = calculateMainPinCoordinates(moveEvt);
       var pinOffset = calculatePinOffset(offset.left, offset.top);
 
@@ -71,6 +72,10 @@
 
     var mainPinMouseUpHandler = function (upEvt) {
       upEvt.preventDefault();
+
+      if (isPageActive === false) {
+        window.page.activate(true);
+      }
 
       var offset = calculateMainPinCoordinates(upEvt);
       var pinOffset = calculatePinOffset(offset.left, offset.top);
