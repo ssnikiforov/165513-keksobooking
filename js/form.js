@@ -33,7 +33,6 @@
     addressFormField.value = mainPinX + ', ' + mainPinY;
   };
 
-  // form validation
   var changeTypeHandler = function () {
     changePrices();
   };
@@ -133,26 +132,20 @@
 
     var mainPin = map.querySelector('.map__pin--main');
 
-    // все заполненные поля стираются
     cardsForm.reset();
 
-    // метки похожих объявлений удаляются
     window.map.removePins();
 
-    // карточка активного объявления удаляется
     var cards = map.querySelectorAll('.map__card');
     [].forEach.call(cards, function (card) {
       map.removeChild(card);
     });
 
-    // метка адреса возвращается в исходное положение
     mainPin.style.removeProperty('top');
     mainPin.style.removeProperty('left');
 
-    // значение поля адреса корректируется соответственно положению метки
     fillAddressField();
 
-    // отключить форму
     window.page.activate(false);
   };
 

@@ -6,17 +6,16 @@
   var cardsForm = document.querySelector('.notice__form');
   var mainPin = map.querySelector('.map__pin--main');
 
-  // disable page by default
   var isPageActive = false;
 
   var activatePage = function (activationFlag) {
-    if (activationFlag) { // do page active
+    if (activationFlag) {
       isPageActive = true;
       window.backend.load(successHandler, window.util.errorHandler);
       map.classList.remove('map--faded');
       cardsForm.classList.remove('notice__form--disabled');
       window.form.fillAddressField();
-    } else { // do page inactive
+    } else {
       isPageActive = false;
       map.classList.add('map--faded');
       cardsForm.classList.add('notice__form--disabled');

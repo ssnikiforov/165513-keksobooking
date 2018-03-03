@@ -113,7 +113,6 @@
   var updateMapPins = function () {
     var adsCopy = ads.slice();
 
-    // do filtration
     if (typeSelect.value !== 'any') {
       adsCopy = filterByValue(adsCopy, 'type', typeSelect.value);
     }
@@ -128,11 +127,9 @@
     }
     adsCopy = filterByFeatures(adsCopy);
 
-    // clean map
     removeMapPins();
     window.card.closeAllOpened();
 
-    // render
     var mapPinsTemplate = template.querySelector('.map__pin');
     var mapPinsFilledFragment = getMapPinsFilledFragment(mapPinsTemplate, adsCopy);
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
