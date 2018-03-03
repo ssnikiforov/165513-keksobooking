@@ -34,12 +34,17 @@
   };
 
   var changeTypeHandler = function () {
-    changePrices();
+    changePrices(window.page.isActive);
   };
 
-  var changePrices = function () {
-    var typeEl = cardsForm.querySelector('#type');
+  var changePrices = function (activationFlag) {
     var priceEl = cardsForm.querySelector('#price');
+    if (!activationFlag) {
+      priceEl.removeAttribute('min');
+      return;
+    }
+
+    var typeEl = cardsForm.querySelector('#type');
     var typesConstants = TYPES;
 
     if (typeEl.value === typesConstants[0]) {
@@ -129,7 +134,6 @@
   };
 
   var resetPage = function () {
-
     var mainPin = map.querySelector('.map__pin--main');
 
     cardsForm.reset();
@@ -194,7 +198,6 @@
 
   var runForm = function () {
     fillAddressField();
-    changePrices();
     changeRoomNumber();
     initializeFormListeners();
   };
@@ -202,6 +205,7 @@
   window.form = {
     fillAddressField: fillAddressField,
     switchFieldsetsActivation: switchFieldsetsActivation,
+    changePrices: changePrices,
     run: runForm
   };
 })();

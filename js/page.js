@@ -21,6 +21,7 @@
       cardsForm.classList.add('notice__form--disabled');
     }
     window.form.switchFieldsetsActivation(activationFlag);
+    window.form.changePrices(activationFlag);
   };
 
   var successHandler = function (ads) {
