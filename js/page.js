@@ -27,8 +27,8 @@
     window.map.showFilters(true);
   };
 
-  var mainPinMoveHandler = function () {
-    if (!_isPageActivated) {
+  var mainPinMoveHandler = function (activationFlag) {
+    if (!activationFlag) {
       _isPageActivated = true;
       activatePage(_isPageActivated);
       window.backend.load(successHandler, window.util.errorHandler);
@@ -39,8 +39,6 @@
   var initPage = function () {
     window.form.switchFieldsetsActivation(_isPageActivated);
 
-    _mainPin.addEventListener('mouseup', mainPinMoveHandler);
-    _mainPin.addEventListener('mousedown', mainPinMoveHandler);
     _mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
 
     window.form.run();
@@ -49,6 +47,7 @@
   initPage();
 
   window.page = {
-    activate: activatePage
+    activate: activatePage,
+    mainPinMoveHandler: mainPinMoveHandler
   };
 })();
