@@ -8,20 +8,24 @@
 
   var isPageActive = false;
 
-  var activatePage = function (activationFlag) {
-    if (activationFlag) {
-      isPageActive = true;
-      window.backend.load(successHandler, window.util.errorHandler);
-      map.classList.remove('map--faded');
-      cardsForm.classList.remove('notice__form--disabled');
-      window.form.fillAddressField();
-    } else {
-      isPageActive = false;
-      map.classList.add('map--faded');
-      cardsForm.classList.add('notice__form--disabled');
-    }
-    window.form.switchFieldsetsActivation(activationFlag);
-    window.form.changePrices(activationFlag);
+  var activatePage = function () {
+    isPageActive = true;
+    window.backend.load(successHandler, window.util.errorHandler);
+    map.classList.remove('map--faded');
+    cardsForm.classList.remove('notice__form--disabled');
+    window.form.fillAddressField();
+
+    window.form.switchFieldsetsActivation(true);
+    window.form.changePrices(true);
+  };
+
+  var disablePage = function () {
+    isPageActive = false;
+    map.classList.add('map--faded');
+    cardsForm.classList.add('notice__form--disabled');
+
+    window.form.switchFieldsetsActivation(false);
+    window.form.changePrices(false);
   };
 
   var successHandler = function (ads) {
@@ -42,6 +46,7 @@
 
   window.page = {
     activate: activatePage,
+    disable: disablePage,
     isActive: isPageActive
   };
 })();

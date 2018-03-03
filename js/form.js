@@ -34,7 +34,7 @@
   };
 
   var changeTypeHandler = function () {
-    changePrices(window.page.isActive);
+    changePrices(true);
   };
 
   var changePrices = function (activationFlag) {
@@ -150,7 +150,7 @@
 
     fillAddressField();
 
-    window.page.activate(false);
+    window.page.disable();
   };
 
   var successHandler = function () {

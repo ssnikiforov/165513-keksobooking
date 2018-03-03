@@ -58,7 +58,7 @@
       moveEvt.preventDefault();
 
       if (isPageActive === false) {
-        window.page.activate(true);
+        window.page.activate();
       }
 
       var offset = calculateMainPinCoordinates(moveEvt);
@@ -74,7 +74,7 @@
       upEvt.preventDefault();
 
       if (isPageActive === false) {
-        window.page.activate(true);
+        window.page.activate();
       }
 
       var offset = calculateMainPinCoordinates(upEvt);
