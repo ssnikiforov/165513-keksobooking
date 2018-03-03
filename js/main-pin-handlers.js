@@ -30,10 +30,10 @@
     };
 
     var calculatePinOffset = function (leftOffset, topOffset) {
-      var xCoordMax = window.map.mapX.max;
-      var xCoordMin = window.map.mapX.min;
-      var yCoordMax = window.map.mapY.max;
-      var yCoordMin = window.map.mapY.min;
+      var xCoordMax = window.map.axisX.max;
+      var xCoordMin = window.map.axisX.min;
+      var yCoordMax = window.map.axisY.max;
+      var yCoordMin = window.map.axisY.min;
 
       if (leftOffset > xCoordMax - window.map.pin.width / 2) {
         leftOffset = xCoordMax - window.map.pin.width / 2;
@@ -81,6 +81,6 @@
     document.addEventListener('mouseup', mainPinMouseUpHandler);
   };
   window.mainPinHandlers = {
-    mouseDownMainPinHandler: mouseDownMainPinHandler
+    mouseDown: mouseDownMainPinHandler
   };
 })();

@@ -19,7 +19,9 @@
   };
 
   var successHandler = function (ads) {
-    window.map.renderMapPins(template, ads);
+    var adsClone = ads.slice();
+    window.map.renderPins(template, adsClone);
+    window.map.showFilters(true);
   };
 
   var mainPinMoveHandler = function () {
@@ -37,9 +39,9 @@
 
   mainPin.addEventListener('mouseup', mainPinMoveHandler);
   mainPin.addEventListener('mousedown', mainPinMoveHandler);
-  mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDownMainPinHandler);
+  mainPin.addEventListener('mousedown', window.mainPinHandlers.mouseDown);
 
-  window.form.runForm();
+  window.form.run();
 
   window.init = {
     activatePage: activatePage
