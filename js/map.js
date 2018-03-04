@@ -7,10 +7,7 @@
   };
   var TAIL_HEIGHT = 16;
 
-  var map = document.querySelector('.map');
-  var mapPins = map.querySelector('.map__pins');
   var X_COORD_MIN = 0;
-  var X_COORD_MAX = mapPins.offsetWidth;
 
   var Y_COORD_MIN = 150;
   var Y_COORD_MAX = 500;
@@ -21,6 +18,10 @@
     MIN: 10000,
     MAX: 50000
   };
+
+  var map = document.querySelector('.map');
+  var mapPins = map.querySelector('.map__pins');
+  var xCoordMax = mapPins.offsetWidth;
 
   var ads;
   var template;
@@ -182,9 +183,9 @@
   window.map = {
     axisX: {
       min: X_COORD_MIN,
-      max: X_COORD_MAX,
+      max: xCoordMax,
       getRandomizedValue: function () {
-        return window.util.getRandomNumberFromRange(X_COORD_MIN, X_COORD_MAX);
+        return window.util.getRandomNumberFromRange(X_COORD_MIN, xCoordMax);
       }
     },
     axisY: {
