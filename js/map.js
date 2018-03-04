@@ -139,11 +139,7 @@
   var addChangeSelectHandler = function (arg) {
     var node = document.querySelector('#housing-' + arg);
     node.addEventListener('change', function () {
-      if (node.value === 'any') {
-        filterValues[arg + ''] = true;
-      } else {
-        filterValues[arg + ''] = node.value;
-      }
+      filterValues[arg] = node.value === 'any' ? true : node.value;
 
       window.util.debounce(updateMapPins);
     });
