@@ -62,31 +62,6 @@
     }
   };
 
-  var changeTimeHandler = function (evt) {
-    var timeInEl = cardsForm.querySelector('#timein');
-    var timeOutEl = cardsForm.querySelector('#timeout');
-
-    var targetElement;
-    var relayElement;
-    if (evt.target === timeInEl) {
-      targetElement = timeInEl;
-      relayElement = timeOutEl;
-    } else if (evt.target === timeOutEl) {
-      targetElement = timeOutEl;
-      relayElement = timeInEl;
-    } else {
-      return;
-    }
-
-    if (targetElement.value === TIME_VALUES[0]) {
-      relayElement.value = TIME_VALUES[0];
-    } else if (targetElement.value === TIME_VALUES[1]) {
-      relayElement.value = TIME_VALUES[1];
-    } else if (targetElement.value === TIME_VALUES[2]) {
-      relayElement.value = TIME_VALUES[2];
-    }
-  };
-
   var changeRoomNumber = function () {
     var roomNumberEl = cardsForm.querySelector('#room_number');
     var capacityEl = cardsForm.querySelector('#capacity');
@@ -174,6 +149,12 @@
     var roomNumberEl = cardsForm.querySelector('#room_number');
     var capacityEl = cardsForm.querySelector('#capacity');
     var resetButtonEl = cardsForm.querySelector('.form__reset');
+
+    var changeTimeHandler = function(evt) {
+      evt.preventDefault();
+      timeInEl.value = evt.target.value;
+      timeOutEl.value = evt.target.value;
+    };
 
     typeEl.addEventListener('change', changeTypeHandler);
     timeInEl.addEventListener('change', changeTimeHandler);
