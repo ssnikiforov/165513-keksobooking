@@ -37,8 +37,8 @@
     map.querySelector('.map__pins').appendChild(mapPinsFilledFragment);
   };
 
-  var renderMapPin = function (template, ad) {
-    var pinElement = template.cloneNode(true);
+  var renderMapPin = function (pinTemplate, ad) {
+    var pinElement = pinTemplate.cloneNode(true);
     var avatarElement = pinElement.querySelector('img');
 
     pinElement.style.left = ad.location.x - window.map.pin.width / 2 + 'px';

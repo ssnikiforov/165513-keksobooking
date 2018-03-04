@@ -7,12 +7,6 @@
     'bungalo'
   ];
 
-  var TIME_VALUES = [
-    '12:00',
-    '13:00',
-    '14:00'
-  ];
-
   var PRICE_MIN_BUNGALO = 0;
   var PRICE_MIN_FLAT = 1000;
   var PRICE_MIN_HOUSE = 5000;
@@ -150,7 +144,7 @@
     var capacityEl = cardsForm.querySelector('#capacity');
     var resetButtonEl = cardsForm.querySelector('.form__reset');
 
-    var changeTimeHandler = function(evt) {
+    var changeTimeHandler = function (evt) {
       evt.preventDefault();
       timeInEl.value = evt.target.value;
       timeOutEl.value = evt.target.value;
