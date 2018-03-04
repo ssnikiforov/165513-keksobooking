@@ -62,29 +62,28 @@
     }
   };
 
-  var changeTimeInHandler = function (evt) {
-    var timeOutEl = cardsForm.querySelector('#timeout');
-    var timeValuesConstants = TIME_VALUES;
-
-    if (evt.target.value === timeValuesConstants[0]) {
-      timeOutEl.value = timeValuesConstants[0];
-    } else if (evt.target.value === timeValuesConstants[1]) {
-      timeOutEl.value = timeValuesConstants[1];
-    } else if (evt.target.value === timeValuesConstants[2]) {
-      timeOutEl.value = timeValuesConstants[2];
-    }
-  };
-
-  var changeTimeOutHandler = function (evt) {
+  var changeTimeHandler = function (evt) {
     var timeInEl = cardsForm.querySelector('#timein');
-    var timeValuesConstants = TIME_VALUES;
+    var timeOutEl = cardsForm.querySelector('#timeout');
 
-    if (evt.target.value === timeValuesConstants[0]) {
-      timeInEl.value = timeValuesConstants[0];
-    } else if (evt.target.value === timeValuesConstants[1]) {
-      timeInEl.value = timeValuesConstants[1];
-    } else if (evt.target.value === timeValuesConstants[2]) {
-      timeInEl.value = timeValuesConstants[2];
+    var targetElement;
+    var relayElement;
+    if (evt.target === timeInEl) {
+      targetElement = timeInEl;
+      relayElement = timeOutEl;
+    } else if (evt.target === timeOutEl) {
+      targetElement = timeOutEl;
+      relayElement = timeInEl;
+    } else {
+      return;
+    }
+
+    if (targetElement.value === TIME_VALUES[0]) {
+      relayElement.value = TIME_VALUES[0];
+    } else if (targetElement.value === TIME_VALUES[1]) {
+      relayElement.value = TIME_VALUES[1];
+    } else if (targetElement.value === TIME_VALUES[2]) {
+      relayElement.value = TIME_VALUES[2];
     }
   };
 
@@ -177,8 +176,8 @@
     var resetButtonEl = cardsForm.querySelector('.form__reset');
 
     typeEl.addEventListener('change', changeTypeHandler);
-    timeInEl.addEventListener('change', changeTimeInHandler);
-    timeOutEl.addEventListener('change', changeTimeOutHandler);
+    timeInEl.addEventListener('change', changeTimeHandler);
+    timeOutEl.addEventListener('change', changeTimeHandler);
     roomNumberEl.addEventListener('change', changeRoomNumberHandler);
     capacityEl.addEventListener('change', changeCapacityHandler);
     resetButtonEl.addEventListener('click', clickResetButtonHandler);
